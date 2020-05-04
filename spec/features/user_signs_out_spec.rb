@@ -6,9 +6,8 @@ feature 'user signs out', %Q{
   So that my identity is forgotten about on the machine I'm using
 } do
   # Acceptance Criteria
-  # * If I'm signed in, I have an option to sign out
-  # * When I opt to sign out, I get a confirmation that my identity has been
-  #   forgotten on the machine I'm using
+  # [x] If I'm signed in, I have an option to sign out
+  # [x] When I sign out, I get confirmation that my identity has been forgotten
 
   scenario 'authenticated user signs out' do
     user = FactoryBot.create(:user)
