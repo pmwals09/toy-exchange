@@ -1,24 +1,5 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+[![Codeship Status for pmwals09/toy-exchange](https://app.codeship.com/projects/37c49de0-7061-0138-1c46-1a5854f10ed2/status?branch=master)](https://app.codeship.com/projects/395239)
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+This Toy Exchange can be used by parents everywhere to empty out the toyboxes of their older kids, to the benefit of young parents everywhere! Built with a React frontend and a Ruby on Rails backend.
