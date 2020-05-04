@@ -12,6 +12,7 @@ feature 'user registers', %Q{
 # [x] If I enter valid credentials, I receive on-screen feedback that my account was successfully created
 # [x] If I enter credentials of an existing user, I receive on-screen feedback that a user exists
 # [x] I can quickly access the sign-up page from the root path if I'm not already logged in
+# [x] User sees profile photo after sign up
 
   scenario 'getting to the sign-in page' do
     visit "/"
@@ -26,11 +27,13 @@ feature 'user registers', %Q{
     fill_in 'Username', with: 'JohnSmith88'
     fill_in 'Password', with: 'password123'
     fill_in 'Password confirmation', with: 'password123'
+    attach_file :user_profile_photo, "#{Rails.root}/spec/support/images/test-user-image.jpg"
 
     click_button 'Sign up'
 
     expect(page).to have_content('Welcome! You have signed up successfully.')
     expect(page).to have_content('Sign Out')
+    expect(page).to have_css("img[src*='test-user-image.jpg']")
   end
 
   scenario 'provide invalid registration information' do
@@ -47,7 +50,7 @@ feature 'user registers', %Q{
       password: "password",
       username: "JohnSmith88"
     )
-    
+
     visit new_user_registration_path
 
     fill_in 'Email', with: 'john@example.com'

@@ -7,4 +7,6 @@ class User < ApplicationRecord
   validates :username, presence: true
   validates :username, length: { minimum: 4 }
   validates :username, uniqueness: true
+
+  mount_uploader :profile_photo, ProfilePhotoUploader
 end
