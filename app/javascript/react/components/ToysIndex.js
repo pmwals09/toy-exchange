@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react"
 import ToyTile from './ToyTile'
 
 const ToysIndex = props => {
-  const [toys, setToys] = useState([])
+  const [toys, setToys] = useState({'toys': []})
 
   useEffect(() => {
     fetch('/api/v1/toys.json')
@@ -21,7 +21,7 @@ const ToysIndex = props => {
     .catch(error => console.error(`Error in fetch: (${error.message})`))
   }, [])
 
-  const toyList = toys.map(toy => {
+  const toyList = toys.toys.map(toy => {
     return (
       <ToyTile
         key={toy.id}
@@ -29,6 +29,7 @@ const ToysIndex = props => {
       />
     )
   })
+
   return (
     <div>
       {toyList}

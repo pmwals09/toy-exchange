@@ -16,19 +16,19 @@ RSpec.describe Api::V1::ToysController, type: :controller do
       get :index
       api_response = JSON.parse(response.body)
 
-      expect(api_response.length).to eq 2
+      expect(api_response['toys'].length).to eq 2
 
-      expect(api_response[0]['toy_name']).to eq toy1.toy_name
-      expect(api_response[0]['manufacturer_name']).to eq toy1.manufacturer_name
-      expect(api_response[0]['min_age']).to eq toy1.min_age
-      expect(api_response[0]['max_age']).to eq toy1.max_age
-      expect(api_response[0]['product_image_url']).to eq toy1.product_image_url
+      expect(api_response['toys'][0]['toy_name']).to eq toy1.toy_name
+      expect(api_response['toys'][0]['manufacturer_name']).to eq toy1.manufacturer_name
+      expect(api_response['toys'][0]['min_age']).to eq toy1.min_age
+      expect(api_response['toys'][0]['max_age']).to eq toy1.max_age
+      expect(api_response['toys'][0]['product_image_url']).to eq toy1.product_image_url
 
-      expect(api_response[1]['toy_name']).to eq toy2.toy_name
-      expect(api_response[1]['manufacturer_name']).to eq toy2.manufacturer_name
-      expect(api_response[1]['min_age']).to eq toy2.min_age
-      expect(api_response[1]['max_age']).to eq toy2.max_age
-      expect(api_response[1]['product_image_url']).to eq toy2.product_image_url
+      expect(api_response['toys'][1]['toy_name']).to eq toy2.toy_name
+      expect(api_response['toys'][1]['manufacturer_name']).to eq toy2.manufacturer_name
+      expect(api_response['toys'][1]['min_age']).to eq toy2.min_age
+      expect(api_response['toys'][1]['max_age']).to eq toy2.max_age
+      expect(api_response['toys'][1]['product_image_url']).to eq toy2.product_image_url
 
     end
   end
