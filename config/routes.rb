@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   root 'homes#index'
   get '/toys', to: 'homes#index'
   get '/toys/new', to: 'homes#index'
+  get '/toys/:id', to: 'homes#index'
 
   devise_for :users
 

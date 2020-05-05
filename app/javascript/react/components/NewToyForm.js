@@ -1,4 +1,8 @@
 import React, { useState } from 'react'
+import { Redirect } from 'react-router-dom'
+import _ from 'lodash'
+
+import ErrorList from "./ErrorList"
 
 const NewToyForm = props => {
   const defaultFormData = {
@@ -9,6 +13,9 @@ const NewToyForm = props => {
     product_image_url: ""
   }
   const [formData, setFormData] = useState(defaultFormData)
+  const [errors, setErrors] = useState({})
+  const [newToy, setNewToy] = useState({})
+  const [shouldRedirect, setShouldRedirect] = useState(false)
 
   const handleChange = event => {
     setFormData({
@@ -17,34 +24,64 @@ const NewToyForm = props => {
     })
   }
 
+  const validateForm = () => {
+    let newErrors = {}
+    const requiredFields = ["toy_name", "manufacturer_name"]
+    requiredFields.forEach((field) => {
+      if(formData[field].trim === "") {
+        newErrors = {
+          ...newErrors,
+          [field]: "is blank"
+        }
+      }
+    })
+    setErrors(newErrors)
+    return _.isEmpty(newErrors)
+  }
+
   const handleSubmit = event => {
-    event.preventDefault()
-    fetch('/api/v1/toys', {
-      credentials: "same-origin",
-      method: "POST",
-      body: JSON.stringify(formData),
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      }
-    })
-    .then(response => {
-      if(response.ok) {
-        return response
-      } else {
-        let errorMessage = `${response.status} (${response.statusText})`
-        let error = new Error(errorMessage)
-        throw(error)
-      }
-    })
-    .then(response => response.json())
-    .then(parsedData => {
-      console.log(parsedData.errors) // follow-up from here
-    })
+    if(validateForm()) {
+      event.preventDefault()
+      fetch('/api/v1/toys', {
+        credentials: "same-origin",
+        method: "POST",
+        body: JSON.stringify(formData),
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json"
+        }
+      })
+      .then(response => {
+        if(response.ok) {
+          return response
+        } else {
+          let errorMessage = `${response.status} (${response.statusText})`
+          let error = new Error(errorMessage)
+          throw(error)
+        }
+      })
+      .then(response => response.json())
+      .then(parsedData => {
+        if(parsedData.errors) {
+          setErrors(parsedData.errors)
+        } else {
+          setNewToy(parsedData)
+          setShouldRedirect(true)
+        }
+      })
+    }
+  }
+
+  if(shouldRedirect) {
+    return <Redirect to={`/toys/${newToy.id}`} />
   }
 
   return (
     <form onSubmit={handleSubmit}>
+      <ErrorList
+        errors={errors}
+      />
+
       <div className="form-field">
         <label htmlFor="toy_name">Toy Name:</label>
         <input type="text" id="toy_name" name="toy_name" value={formData.toy_name} onChange={handleChange}/>
