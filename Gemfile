@@ -53,3 +53,9 @@ gem 'webpacker', '~> 3.3'
 
 # Add serialization to api endpoints
 gem "active_model_serializers"
+
+# Photo uploader
+gem "carrierwave"
+
+# Image processing
+gem "mini_magick"

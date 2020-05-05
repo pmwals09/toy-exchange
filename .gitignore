@@ -18,6 +18,7 @@
 /yarn-error.log
 
 /public/assets
+/public/uploads
 .byebug_history
 
 user_stories.md
