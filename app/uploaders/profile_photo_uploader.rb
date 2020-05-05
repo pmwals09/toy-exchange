@@ -23,7 +23,6 @@ class ProfilePhotoUploader < CarrierWave::Uploader::Base
 
   # Process files as they are uploaded:
   # process scale: [200, 300]
-  resize_to_fit: [256, 340]
   # def scale(width, height)
   #   # do something
   # end
@@ -33,9 +32,9 @@ class ProfilePhotoUploader < CarrierWave::Uploader::Base
     process resize_to_fit: [64, 64]
   end
 
-  # version :profile do
-  #   process resize_to_fit: [256, 340]
-  # end
+  version :profile do
+    process resize_to_fit: [256, 340]
+  end
 
   # Add a white list of extensions which are allowed to be uploaded.
   # For images you might use something like this:
