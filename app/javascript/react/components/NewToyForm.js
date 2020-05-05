@@ -27,8 +27,9 @@ const NewToyForm = props => {
   const validateForm = () => {
     let newErrors = {}
     const requiredFields = ["toy_name", "manufacturer_name"]
-    requiredFields.forEach((field) => {
-      if(formData[field].trim === "") {
+    requiredFields.forEach(field => {
+      if(formData[field].trim() === "") {
+        field = field.replace(/_/g, " ")
         newErrors = {
           ...newErrors,
           [field]: "is blank"
@@ -40,8 +41,8 @@ const NewToyForm = props => {
   }
 
   const handleSubmit = event => {
+    event.preventDefault()
     if(validateForm()) {
-      event.preventDefault()
       fetch('/api/v1/toys', {
         credentials: "same-origin",
         method: "POST",
@@ -63,9 +64,9 @@ const NewToyForm = props => {
       .then(response => response.json())
       .then(parsedData => {
         if(parsedData.errors) {
-          setErrors(parsedData.errors)
+          console.error(parsedData.errors)
         } else {
-          setNewToy(parsedData)
+          setNewToy(parsedData.toy)
           setShouldRedirect(true)
         }
       })
