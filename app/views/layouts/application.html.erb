@@ -7,30 +7,36 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-
-  <nav class="top-bar">
-    <h1><a href="/">ToyExchange</a></h1>
-
-    <section class="top-bar-section">
-      <ul class="right">
-        <%- if current_user -%>
-          <li><%= link_to 'Sign Out', destroy_user_session_path, method: :delete %></li>
-          <li><%= image_tag current_user.profile_photo_url(:avatar) %></li>
-        <%- else -%>
-          <li><%= link_to 'Sign Up', new_user_registration_path %></li>
-          <li><%= link_to 'Sign In', new_user_session_path %></li>
-        <%- end -%>
-      </ul>
-    </section>
-  </nav>
+  <div class="grid-x grid-padding-x align-middle" id="header-bar">
+    <div class="cell small-3">
+      <% if current_user %>
+        <%= link_to 'Add a Toy!', toys_new_path %>
+      <% end %>
+    </div>
+    <div class="cell auto text-center">
+      <h1><a href="/" class="logo-text">ThrifToy</a></h1>
+    </div>
+    <div class="cell small-3 text-right">
+      <%- if current_user -%>
+        <%= image_tag current_user.profile_photo_url(:avatar), id: 'avatar' %> | <%= link_to 'Sign Out', destroy_user_session_path, method: :delete %>
+      <%- else -%>
+        <%= link_to 'Sign Up', new_user_registration_path %> | <%= link_to 'Sign In', new_user_session_path %>
+      <%- end -%>
+    </div>
+  </div>
 
   <%- flash.each do |key, value| -%>
     <div class="flash flash-<%= key %>">
-      <%= value %>
+      <p><%= value %></p>
     </div>
   <%- end -%>
-
-  <%= yield %>
+  <div class="grid-container">
+    <div class="grid-x grid-margin-x align-center">
+      <div class="cell small-12 medium-10">
+        <%= yield %>
+      </div>
+    </div>
+  </div>
 
   <%= javascript_include_tag 'application' %>
 

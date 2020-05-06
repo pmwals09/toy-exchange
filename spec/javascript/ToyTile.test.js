@@ -19,24 +19,34 @@ import ToyTile from "../../app/javascript/react/components/ToyTile"
 
 describe("ToyTile", () => {
   let wrapper
+  let photo_obj = {
+    hero: {
+      url: "https://toy-exchange-development.s3.amazonaws.com/uploads/toy/toy_photo/1/hero_test-toy-image.jpg"
+    },
+    thumb: {
+      url: "https://toy-exchange-development.s3.amazonaws.com/uploads/toy/toy_photo/1/thumb_test-toy-image.jpg"
+    },
+    url: "https://toy-exchange-development.s3.amazonaws.com/uploads/toy/toy_photo/1/test-toy-image.jpg"
+  }
 
   beforeEach(() => {
     wrapper = mount(
       <ToyTile
         name={"Paw Patrol Toy"}
+        photo={photo_obj}
       />
     )
   })
 
   it('should render an h3 element of name received via props', () => {
-    expect(wrapper.find('h3').text()).toBe('Paw Patrol Toy')
+    expect(wrapper.find('h6').text()).toBe('Paw Patrol Toy')
   })
 
   xit('should render an img of toy received via props', () => {
     expect(wrapper.find('img').props()).toEqual({
-      src: '',
-      height: '',
-      width: ''
+      height: '202',
+      width: '202',
+      src: "https://toy-exchange-development.s3.amazonaws.com/uploads/toy/toy_photo/1/thumb_test-toy-image.jpg"
     })
   })
 

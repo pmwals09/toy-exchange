@@ -26,12 +26,13 @@ const ToysIndex = props => {
       <ToyTile
         key={toy.id}
         name={toy.toy_name}
+        photo={toy.toy_photo}
       />
     )
   })
 
   return (
-    <div>
+    <div className="grid-x grid-margin-x">
       {toyList}
     </div>
   )

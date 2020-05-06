@@ -19,9 +19,9 @@ class ToyPhotoUploader < CarrierWave::Uploader::Base
   # Provide a default URL as a default if there hasn't been a file uploaded:
   # def default_url(*args)
   #   # For Rails 3.1+ asset pipeline compatibility:
-  #   # ActionController::Base.helpers.asset_path("fallback/" + [version_name, "default.png"].compact.join('_'))
+  #   # ActionController::Base.helpers.asset_path("/fallback/" + ["dev", "default.jpg"].compact.join('_'))
   #
-  #   "/images/fallback/" + [version_name, "default.png"].compact.join('_')
+  #   # "/images/fallback/" + [version_name, "default.png"].compact.join('_')
   # end
 
   # Process files as they are uploaded:
@@ -35,6 +35,13 @@ class ToyPhotoUploader < CarrierWave::Uploader::Base
   # version :thumb do
   #   process resize_to_fit: [50, 50]
   # end
+  version :thumb do
+    process resize_to_fit: [225, 225]
+  end
+
+  version :hero do
+    process resize_to_fit: [350, 350]
+  end
 
   # Add a white list of extensions which are allowed to be uploaded.
   # For images you might use something like this:
