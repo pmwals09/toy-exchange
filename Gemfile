@@ -59,3 +59,6 @@ gem "carrierwave"
 
 # Image processing
 gem "mini_magick"
+
+# Cloud storage integration
+gem "fog"

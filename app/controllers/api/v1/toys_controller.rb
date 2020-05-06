@@ -1,4 +1,4 @@
-class Api::V1::ToysController < ApplicationController
+class Api::V1::ToysController < ApplicationController  
   def index
     render json: Toy.all
   end
@@ -9,6 +9,7 @@ class Api::V1::ToysController < ApplicationController
 
   def create
     new_toy = Toy.new(toy_params)
+    binding.pry
     if new_toy.save
       render json: new_toy
     else
@@ -19,6 +20,6 @@ class Api::V1::ToysController < ApplicationController
   private
 
   def toy_params
-    params.require(:toy).permit(:toy_name, :manufacturer_name, :min_age, :max_age, :product_image_url)
+    params.require(:toy).permit(:toy_name, :manufacturer_name, :min_age, :max_age, :toy_photo)
   end
 end

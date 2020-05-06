@@ -11,4 +11,6 @@ class Toy < ApplicationRecord
     allow_nil: true,
     greater_than_or_equal_to: 0
   }
+
+  mount_uploader :toy_photo, ToyPhotoUploader
 end
