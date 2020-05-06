@@ -19,6 +19,6 @@ class Api::V1::ToysController < ApplicationController
   private
 
   def toy_params
-    params.require(:toy).permit(:toy_name, :manufacturer_name, :min_age, :max_age, :product_image_url)
+    params.require(:toy).permit(:toy_name, :manufacturer_name, :min_age, :max_age, :toy_photo)
   end
 end

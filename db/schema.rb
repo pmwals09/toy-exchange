@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_04_205705) do
+ActiveRecord::Schema.define(version: 2020_05_05_201148) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 2020_05_04_205705) do
     t.string "manufacturer_name", null: false
     t.integer "min_age"
     t.integer "max_age"
-    t.string "product_image_url"
+    t.string "toy_photo"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

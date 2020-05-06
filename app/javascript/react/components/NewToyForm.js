@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Redirect } from 'react-router-dom'
+import Dropzone from 'react-dropzone'
 import _ from 'lodash'
 
 import ErrorList from "./ErrorList"
@@ -10,7 +11,7 @@ const NewToyForm = props => {
     manufacturer_name: "",
     min_age: "",
     max_age: "",
-    product_image_url: ""
+    toy_photo: ""
   }
   const [formData, setFormData] = useState(defaultFormData)
   const [errors, setErrors] = useState({})
@@ -40,17 +41,27 @@ const NewToyForm = props => {
     return _.isEmpty(newErrors)
   }
 
+  const handleFileUpload = acceptedFiles => {
+    setFormData({
+      ...formData,
+      toy_photo: acceptedFiles[0]
+    })
+  }
+
   const handleSubmit = event => {
     event.preventDefault()
+    let body = new FormData()
+    body.append("toy[toy_photo]", formData.toy_photo)
+    body.append("toy[toy_name]", formData.toy_name)
+    body.append("toy[manufacturer_name]", formData.manufacturer_name)
+    body.append("toy[min_age]", formData.min_age)
+    body.append("toy[max_age]", formData.max_age)
+
     if(validateForm()) {
       fetch('/api/v1/toys', {
         credentials: "same-origin",
         method: "POST",
-        body: JSON.stringify(formData),
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json"
-        }
+        body: body
       })
       .then(response => {
         if(response.ok) {
@@ -103,10 +114,16 @@ const NewToyForm = props => {
         <input type="number" id="max_age" name="max_age" value={formData.max_age} onChange={handleChange}/>
       </div>
 
-      <div className="form-field">
-        <label htmlFor="product_image_url">Product Image:</label>
-        <input type="file" id="product_image_url" name="product_image_url" value={formData.product_image_url} onChange={handleChange}/>
-      </div>
+      <Dropzone onDrop={handleFileUpload}>
+        {({getRootProps, getInputProps}) => (
+          <section>
+            <div {...getRootProps()}>
+              <input {...getInputProps()} />
+              <p>Drag 'n' drop files here, or click to select files</p>
+            </div>
+          </section>
+        )}
+      </Dropzone>
 
       <div className="form-actions">
         <input type="submit" value="Add Toy to Library" />
