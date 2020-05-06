@@ -22,7 +22,6 @@ const ToysIndex = props => {
   }, [])
 
   const toyList = toys.toys.map(toy => {
-    debugger
     return (
       <ToyTile
         key={toy.id}
