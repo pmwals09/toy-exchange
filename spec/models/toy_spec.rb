@@ -13,6 +13,6 @@ RSpec.describe Toy, type: :model do
   it { should have_valid(:max_age).when(6, 0, 12, 100, "", nil) }
   it { should_not have_valid(:max_age).when("a", "six") }
 
-  it { should have_valid(:product_image_url).when("http://www.image.com/image.jpg", "https://www.image.com/image.jpg")}
-  it { should have_valid(:product_image_url).when("www.image.com/image.jpg", "image.jpg")}
+  it { should have_valid(:toy_photo).when("http://www.image.com/image.jpg", "https://www.image.com/image.jpg")}
+  it { should have_valid(:toy_photo).when("www.image.com/image.jpg", "image.jpg")}
 end

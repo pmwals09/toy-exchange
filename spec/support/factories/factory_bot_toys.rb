@@ -6,6 +6,6 @@ FactoryBot.define do
     sequence(:manufacturer_name) { |n| "Spin Master #{n}"}
     min_age { 0 }
     max_age { 100 }
-    product_image_url { 'http://www.image.com/image.jpg' }
+    toy_photo { fixture_file_upload('spec/fixtures/test-toy-image.jpg', 'image/jpeg') }
   end
 end

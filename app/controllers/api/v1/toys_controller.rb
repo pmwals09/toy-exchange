@@ -1,4 +1,4 @@
-class Api::V1::ToysController < ApplicationController  
+class Api::V1::ToysController < ApplicationController
   def index
     render json: Toy.all
   end
@@ -9,7 +9,6 @@ class Api::V1::ToysController < ApplicationController
 
   def create
     new_toy = Toy.new(toy_params)
-    binding.pry
     if new_toy.save
       render json: new_toy
     else

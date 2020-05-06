@@ -22,13 +22,11 @@ RSpec.describe Api::V1::ToysController, type: :controller do
       expect(api_response['toys'][0]['manufacturer_name']).to eq toy1.manufacturer_name
       expect(api_response['toys'][0]['min_age']).to eq toy1.min_age
       expect(api_response['toys'][0]['max_age']).to eq toy1.max_age
-      expect(api_response['toys'][0]['product_image_url']).to eq toy1.product_image_url
 
       expect(api_response['toys'][1]['toy_name']).to eq toy2.toy_name
       expect(api_response['toys'][1]['manufacturer_name']).to eq toy2.manufacturer_name
       expect(api_response['toys'][1]['min_age']).to eq toy2.min_age
       expect(api_response['toys'][1]['max_age']).to eq toy2.max_age
-      expect(api_response['toys'][1]['product_image_url']).to eq toy2.product_image_url
     end
   end
 
@@ -48,21 +46,21 @@ RSpec.describe Api::V1::ToysController, type: :controller do
       manufacturer_name: "Good toy maker",
       min_age: 3,
       max_age: 15,
-      product_image_url: ""
+      toy_photo: fixture_file_upload('test-toy-image.jpg', 'image/jpeg')
     } } }
     let!(:bad_toy_data_blanks) { { toy: {
       toy_name: "",
       manufacturer_name: "Bad toy maker",
       min_age: 3,
       max_age: 15,
-      product_image_url: ""
+      toy_photo: fixture_file_upload('test-toy-image.jpg', 'image/jpeg')
     } } }
     let!(:bad_toy_data_wrong) { { toy: {
       toy_name: "Bad toy",
       manufacturer_name: "Bad toy maker",
       min_age: "three",
       max_age: 15,
-      product_image_url: ""
+      toy_photo: fixture_file_upload('test-toy-image.jpg', 'image/jpeg')
     } } }
     it "adds a new game to the db" do
       before_count = Toy.count
@@ -81,7 +79,6 @@ RSpec.describe Api::V1::ToysController, type: :controller do
       expect(api_response["toy"]["manufacturer_name"]).to eq good_toy_data[:toy][:manufacturer_name]
       expect(api_response["toy"]["min_age"]).to eq good_toy_data[:toy][:min_age]
       expect(api_response["toy"]["max_age"]).to eq good_toy_data[:toy][:max_age]
-      expect(api_response["toy"]["product_image_url"]).to eq good_toy_data[:toy][:product_image_url]
     end
 
     it "does not add incomplete info to the db" do
