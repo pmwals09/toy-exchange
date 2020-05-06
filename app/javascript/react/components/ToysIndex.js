@@ -22,16 +22,18 @@ const ToysIndex = props => {
   }, [])
 
   const toyList = toys.toys.map(toy => {
+    debugger
     return (
       <ToyTile
         key={toy.id}
         name={toy.toy_name}
+        photo={toy.toy_photo}
       />
     )
   })
 
   return (
-    <div>
+    <div className="grid-x grid-margin-x">
       {toyList}
     </div>
   )
