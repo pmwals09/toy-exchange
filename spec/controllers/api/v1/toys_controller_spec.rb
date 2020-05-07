@@ -30,13 +30,23 @@ RSpec.describe Api::V1::ToysController, type: :controller do
     end
   end
 
-  xdescribe "GET#show" do
-    xit "returns successful response code and json content" do
+  describe "GET#show" do
+    let!(:toy1) { FactoryBot.create(:toy)}
+    let!(:toy2) { FactoryBot.create(:toy)}
 
+    it "returns successful response code and json content" do
+      get :show, params: { id: toy1.id }
+
+      expect(response.status).to eq 200
+      expect(response.content_type).to eq 'application/json'
     end
 
-    xit "returns correct toy" do
-
+    it "returns correct toy" do
+      get :show, params: { id: toy1.id }
+      api_response = JSON.parse(response.body)
+      
+      expect(api_response['toy']['id']).to eq toy1.id
+      expect(api_response['toy']['id']).to_not eq toy2.id
     end
   end
 
@@ -74,7 +84,7 @@ RSpec.describe Api::V1::ToysController, type: :controller do
       post :create, params: good_toy_data, format: :json
       api_response = JSON.parse(response.body)
 
-      expect(api_response["toy"].length).to eq 6
+      expect(api_response["toy"].length).to eq 8
       expect(api_response["toy"]["toy_name"]).to eq good_toy_data[:toy][:toy_name]
       expect(api_response["toy"]["manufacturer_name"]).to eq good_toy_data[:toy][:manufacturer_name]
       expect(api_response["toy"]["min_age"]).to eq good_toy_data[:toy][:min_age]

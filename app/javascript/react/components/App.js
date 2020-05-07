@@ -4,6 +4,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import ToysIndex from "./ToysIndex"
 import NewToyForm from "./NewToyForm"
 import ToyShowContainer from "./ToyShowContainer"
+import ToyEditForm from "./ToyEditForm"
 
 export const App = (props) => {
   return (
@@ -13,6 +14,7 @@ export const App = (props) => {
         <Route exact path='/toys' component={ToysIndex} />
         <Route exact path='/toys/new' component={NewToyForm} />
         <Route exact path='/toys/:id' component={ToyShowContainer} />
+        <Route exact path='/toys/:id/edit' component={ToyEditForm} />
       </Switch>
     </BrowserRouter>
   )
