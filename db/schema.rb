@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 2020_05_07_004916) do
     t.string "toy_photo"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "description"
+    t.text "description"
     t.bigint "upc"
   end
 
