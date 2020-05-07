@@ -11,7 +11,8 @@ const UserShow = props => {
     profile_photo: {
       profile: { url: "" }
     },
-    toys: []
+    toys: [],
+    toyboxes: []
   })
 
   useEffect(() => {
@@ -30,13 +31,14 @@ const UserShow = props => {
     .catch(error => console.error(`Error in fetch: ${error.message}`))
   }, [])
 
-  const ownedToysList = user.toys.map(toy => {
+  const ownedToysList = user.toyboxes.map(toybox => {
     return(
       <OwnedToy
-        key={toy.id}
-        id={toy.id}
-        name={toy.toy_name}
+        key={toybox.toy.id}
+        id={toybox.toy.id}
+        name={toybox.toy.toy_name}
         userId={props.match.params.id}
+        availability={toybox.for_sale}
       />
     )
   })

@@ -11,7 +11,7 @@ class Api::V1::ToyboxesController < ApplicationController
 
   def update
     toybox_to_update = Toybox.where(user: current_user, toy_id: params["id"])[0]
-    toybox_to_update.for_sale = true
+    toybox_to_update.for_sale = !toybox_to_update.for_sale
     if toybox_to_update.save
       render json: toybox_to_update
     else
