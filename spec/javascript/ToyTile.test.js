@@ -1,4 +1,5 @@
 import React from "react"
+import { BrowserRouter } from 'react-router-dom'
 import Enzyme, { mount } from "enzyme"
 import Adapter from "enzyme-adapter-react-16"
 Enzyme.configure({ adapter: new Adapter() })
@@ -31,10 +32,12 @@ describe("ToyTile", () => {
 
   beforeEach(() => {
     wrapper = mount(
-      <ToyTile
-        name={"Paw Patrol Toy"}
-        photo={photo_obj}
-      />
+      <BrowserRouter>
+        <ToyTile
+          name={"Paw Patrol Toy"}
+          photo={photo_obj}
+        />
+      </BrowserRouter>
     )
   })
 
