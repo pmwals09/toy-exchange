@@ -2,9 +2,20 @@ import React, { useState, useEffect } from "react"
 import { Link } from 'react-router-dom'
 
 import ShowTop from "./ShowTop"
+import UpForGrabs from "./UpForGrabs"
 
 const ToyShowContainer = props => {
-  const [toyData, setToyData] = useState({})
+  const [toyData, setToyData] = useState({
+    id: null,
+    toy_name: "",
+    manufacturer_name: "",
+    min_age: null,
+    max_age: null,
+    toy_photo: { hero: { url: null } },
+    upc: null,
+    description: "",
+    toyboxes: []
+  })
   const [toyAdded, setToyAdded] = useState(false)
 
   useEffect(() => {
@@ -46,6 +57,17 @@ const ToyShowContainer = props => {
     .catch(error => console.error(`Error in fetch: ${error.message}`))
   }
 
+  const availableList = toyData.toyboxes.map(toybox => {
+    if(toybox.for_sale) {
+      return(
+        <UpForGrabs
+          key={toybox.toy.id}
+          name={toybox.user.username}
+        />
+      )
+    }
+  })
+
   let photo
   if(toyData.toy_photo === undefined || toyData.toy_photo.hero.url === null) {
     photo = "https://toy-exchange-development.s3.amazonaws.com/defaults/default.jpg"
@@ -78,6 +100,7 @@ const ToyShowContainer = props => {
         <span className="button" onClick={addToLibrary}>Add to your Library!</span> <Link to={`/toys/${toyData.id}/edit`} className="button">Edit</Link>
         {gameAddedStatus}
         <h2>Up for Grabs</h2>
+        {availableList}
       </div>
     </div>
   )
