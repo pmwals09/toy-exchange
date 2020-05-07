@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react"
 import { Link } from 'react-router-dom'
 
+import ShowTop from "./ShowTop"
+
 const ToyShowContainer = props => {
   const [toyData, setToyData] = useState({})
 
@@ -25,19 +27,22 @@ const ToyShowContainer = props => {
   } else {
     photo = toyData.toy_photo.hero.url
   }
+
+  const details = <>
+    <p><strong>Description: </strong>{toyData.description || "n/a"}</p>
+    <p><strong>Manufacturer: </strong>{toyData.manufacturer_name}</p>
+    <p><strong>UPC: </strong>{toyData.upc || "n/a"}</p>
+    <p><strong>Ages: </strong>{toyData.min_age}-{toyData.max_age}</p>
+  </>
+
   return (
     <div>
-      <h1>{toyData.toy_name}</h1>
-      <div className="toy-show-top">
-        <div className="img-container">
-          <img src={photo} />
-        </div>
-        <p><strong>Description: </strong>{toyData.description}</p>
-        <p><strong>Manufacturer: </strong>{toyData.manufacturer_name}</p>
-        <p><strong>UPC: </strong>{toyData.upc}</p>
-        <p><strong>Ages: </strong>{toyData.min_age}-{toyData.max_age}</p>
-      </div>
-      <div className="toy-show-bottom">
+      <ShowTop
+        name={toyData.toy_name}
+        photo={photo}
+        details={details}
+      />
+      <div className="show-bottom">
         <a className="button">Add to your Library!</a> <Link to={`/toys/${toyData.id}/edit`} className="button">Edit</Link>
         <h2>Up for Grabs</h2>
       </div>
