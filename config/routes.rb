@@ -11,8 +11,12 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :toys, only: [:create, :index, :show, :update]
-      resources :users, only: [:show]
+      resources :toys, only: [:create, :index, :show, :update] do
+        resources :toyboxes, only: [:create]
+      end
+      resources :users, only: [:show] do
+        resources :toyboxes, only: [:destroy]
+      end
     end
   end
 end

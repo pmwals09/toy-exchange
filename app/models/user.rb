@@ -9,4 +9,7 @@ class User < ApplicationRecord
   validates :username, uniqueness: true
 
   mount_uploader :profile_photo, ProfilePhotoUploader
+
+  has_many :toyboxes
+  has_many :toys, through: :toyboxes
 end

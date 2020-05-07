@@ -19,4 +19,7 @@ class Toy < ApplicationRecord
   }
 
   mount_uploader :toy_photo, ToyPhotoUploader
+  
+  has_many :toyboxes
+  has_many :users, through: :toyboxes
 end

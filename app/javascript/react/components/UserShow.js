@@ -1,9 +1,18 @@
 import React, { useState, useEffect } from 'react'
 
 import ShowTop from './ShowTop'
+import OwnedToy from './OwnedToy'
 
 const UserShow = props => {
-  const [user, setUser] = useState({})
+  const [user, setUser] = useState({
+    id: "",
+    emaiil: "",
+    username: "",
+    profile_photo: {
+      profile: { url: "" }
+    },
+    toys: []
+  })
 
   useEffect(() => {
     fetch(`/api/v1/users/${props.match.params.id}`)
@@ -17,10 +26,19 @@ const UserShow = props => {
       }
     })
     .then(response => response.json())
-    .then(parsedData => {
-      setUser(parsedData.user)
-    })
+    .then(parsedData => setUser(parsedData.user))
+    .catch(error => console.error(`Error in fetch: ${error.message}`))
   }, [])
+
+  const ownedToysList = user.toys.map(toy => {
+    return(
+      <OwnedToy
+        key={toy.id}
+        id={toy.id}
+        name={toy.toy_name}
+      />
+    )
+  })
 
   let photo
   if(user.profile_photo === undefined) {
@@ -41,6 +59,7 @@ const UserShow = props => {
       <div className="show-bottom">
         <a href="/users/edit" className="button">Edit My Profile</a>
         <h3>My Toy Box</h3>
+          {ownedToysList}
       </div>
     </div>
   )

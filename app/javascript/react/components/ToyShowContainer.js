@@ -5,6 +5,7 @@ import ShowTop from "./ShowTop"
 
 const ToyShowContainer = props => {
   const [toyData, setToyData] = useState({})
+  const [toyAdded, setToyAdded] = useState(false)
 
   useEffect(() => {
     fetch(`/api/v1/toys/${props.match.params.id}`)
@@ -19,7 +20,31 @@ const ToyShowContainer = props => {
     })
     .then(response => response.json())
     .then(parsedData => setToyData(parsedData.toy))
+    .catch(error => console.error(`Error in fetch: ${error.message}`))
   }, [])
+
+  const addToLibrary = event => {
+    event.preventDefault()
+    fetch(`/api/v1/toys/${props.match.params.id}/toyboxes`, {
+      credentials: "same-origin",
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      }
+    })
+    .then(response => {
+      if(response.ok) {
+        setToyAdded(true)
+        return response
+      } else {
+        let errorMessage = `${response.status} (${response.statusText})`
+        let error = new Error(errorMessage)
+        throw(error)
+      }
+    })
+    .catch(error => console.error(`Error in fetch: ${error.message}`))
+  }
 
   let photo
   if(toyData.toy_photo === undefined || toyData.toy_photo.hero.url === null) {
@@ -35,6 +60,13 @@ const ToyShowContainer = props => {
     <p><strong>Ages: </strong>{toyData.min_age}-{toyData.max_age}</p>
   </>
 
+  let gameAddedStatus
+  if(toyAdded) {
+    gameAddedStatus = <p>Toy added to your toy box!</p>
+  } else {
+    gameAddedStatus = ""
+  }
+
   return (
     <div>
       <ShowTop
@@ -43,7 +75,8 @@ const ToyShowContainer = props => {
         details={details}
       />
       <div className="show-bottom">
-        <a className="button">Add to your Library!</a> <Link to={`/toys/${toyData.id}/edit`} className="button">Edit</Link>
+        <span className="button" onClick={addToLibrary}>Add to your Library!</span> <Link to={`/toys/${toyData.id}/edit`} className="button">Edit</Link>
+        {gameAddedStatus}
         <h2>Up for Grabs</h2>
       </div>
     </div>
