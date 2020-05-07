@@ -8,4 +8,18 @@ class Api::V1::ToyboxesController < ApplicationController
       render json: { errors: new_toybox.errors.full_messages}, status: :unprocessable_entity
     end
   end
+
+  def update
+    toybox_to_update = Toybox.where(user: current_user, toy_id: params["id"])[0]
+    toybox_to_update.for_sale = true
+    if toybox_to_update.save
+      render json: toybox_to_update
+    else
+      render json: { errors: toybox_to_update.errors.full_messages }, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+
+  end
 end

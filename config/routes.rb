@@ -15,7 +15,7 @@ Rails.application.routes.draw do
         resources :toyboxes, only: [:create]
       end
       resources :users, only: [:show] do
-        resources :toyboxes, only: [:destroy]
+        resources :toyboxes, only: [:update, :destroy]
       end
     end
   end

@@ -36,6 +36,7 @@ const UserShow = props => {
         key={toy.id}
         id={toy.id}
         name={toy.toy_name}
+        userId={props.match.params.id}
       />
     )
   })
