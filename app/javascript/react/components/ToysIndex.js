@@ -25,6 +25,7 @@ const ToysIndex = props => {
     return (
       <ToyTile
         key={toy.id}
+        id={toy.id}
         name={toy.toy_name}
         photo={toy.toy_photo}
       />

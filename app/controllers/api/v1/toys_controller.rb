@@ -16,9 +16,18 @@ class Api::V1::ToysController < ApplicationController
     end
   end
 
+  def update
+    toy_to_update = Toy.find(params[:id])
+    if toy_to_update.update!(toy_params)
+      render json: toy_to_update
+    else
+      render json: { errors: toy_to_update.errors.full_messages.to_sentence }, status: :unprocessable_entity
+    end
+  end
+
   private
 
   def toy_params
-    params.require(:toy).permit(:toy_name, :manufacturer_name, :min_age, :max_age, :toy_photo)
+    params.require(:toy).permit(:toy_name, :manufacturer_name, :min_age, :max_age, :toy_photo, :upc, :description)
   end
 end
