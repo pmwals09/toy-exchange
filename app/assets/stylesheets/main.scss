@@ -37,17 +37,21 @@ a, p, label {
   font-family: 'Raleway', sans-serif;
 }
 
+.button {
+  margin: 0.5rem 0;
+}
+
 .logo-text {
   font-family: 'Modak', cursive;
   margin-bottom: 0;
 }
 
-.toy-show-bottom {
+.show-bottom {
   display: block;
   clear: both;
 }
 
-.toy-show-top {
+.show-top {
 
   .img-container {
     position: relative;

@@ -21,6 +21,7 @@ const ToyEditForm = props => {
     })
     .then(response => response.json())
     .then(parsedData => setDefaultFormData(parsedData.toy))
+    .catch(error => console.error(`Error in fetch: ${error.message}`))
   }, [])
 
   const submitForm = formPayload => {
@@ -47,6 +48,7 @@ const ToyEditForm = props => {
         setShouldRedirect(true)
       }
     })
+    .catch(error => console.error(`Error in fetch: ${error.message}`))
   }
 
   if(shouldRedirect) {

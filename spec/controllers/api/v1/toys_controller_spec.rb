@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe Api::V1::ToysController, type: :controller do
   describe "GET#index" do
-    let!(:toy1) { FactoryBot.create(:toy)}
-    let!(:toy2) { FactoryBot.create(:toy)}
+    let!(:toy1) { FactoryBot.create(:toy) }
+    let!(:toy2) { FactoryBot.create(:toy) }
 
     it "returns successful response code and json content" do
       get :index
@@ -44,7 +44,7 @@ RSpec.describe Api::V1::ToysController, type: :controller do
     it "returns correct toy" do
       get :show, params: { id: toy1.id }
       api_response = JSON.parse(response.body)
-      
+
       expect(api_response['toy']['id']).to eq toy1.id
       expect(api_response['toy']['id']).to_not eq toy2.id
     end
@@ -84,7 +84,7 @@ RSpec.describe Api::V1::ToysController, type: :controller do
       post :create, params: good_toy_data, format: :json
       api_response = JSON.parse(response.body)
 
-      expect(api_response["toy"].length).to eq 8
+      expect(api_response["toy"].length).to eq 9
       expect(api_response["toy"]["toy_name"]).to eq good_toy_data[:toy][:toy_name]
       expect(api_response["toy"]["manufacturer_name"]).to eq good_toy_data[:toy][:manufacturer_name]
       expect(api_response["toy"]["min_age"]).to eq good_toy_data[:toy][:min_age]
@@ -112,6 +112,66 @@ RSpec.describe Api::V1::ToysController, type: :controller do
       api_response = JSON.parse(response.body)
 
       expect(api_response["errors"]).to eq "Toy name can't be blank"
+    end
+  end
+
+  describe "PATCH#update" do
+    let!(:toy1) { FactoryBot.create(:toy)}
+
+    it "does not add an additional toy to the db" do
+      good_toy_data = {
+        id: toy1.id,
+        toy: {
+          toy_name: "Good toy",
+          manufacturer_name: "Good toy maker",
+          min_age: 3,
+          max_age: 15,
+          toy_photo: fixture_file_upload('test-toy-image.jpg', 'image/jpeg')
+        }
+      }
+      before_count = Toy.count
+      patch :update, params: good_toy_data
+      after_count = Toy.count
+
+      expect(after_count).to eq (before_count)
+    end
+
+    it "returns the updated toy information" do
+      good_toy_data = {
+        id: toy1.id,
+        toy: {
+          toy_name: "Good toy",
+          manufacturer_name: "Good toy maker",
+          min_age: 3,
+          max_age: 15,
+          toy_photo: fixture_file_upload('test-toy-image.jpg', 'image/jpeg')
+        }
+      }
+      patch :update, params: good_toy_data
+      api_response = JSON.parse(response.body)
+
+      expect(api_response["toy"]["id"]).to eq(toy1.id)
+      expect(api_response["toy"]["toy_name"]).to eq(good_toy_data[:toy][:toy_name])
+      expect(api_response["toy"]["manufacturer_name"]).to eq(good_toy_data[:toy][:manufacturer_name])
+      expect(api_response["toy"]["min_age"]).to eq(good_toy_data[:toy][:min_age])
+      expect(api_response["toy"]["max_age"]).to eq(good_toy_data[:toy][:max_age])
+    end
+
+    it "returns errors with poor data" do
+      bad_toy_data_wrong = {
+        id: toy1.id,
+        toy: {
+          toy_name: "Bad toy",
+          manufacturer_name: "Bad toy maker",
+          min_age: "three",
+          max_age: 15,
+          toy_photo: fixture_file_upload('test-toy-image.jpg', 'image/jpeg')
+        }
+      }
+      patch :update, params: bad_toy_data_wrong
+      api_response = JSON.parse(response.body)
+
+      expect(api_response["errors"]).to eq "Min age is not a number"
     end
   end
 end

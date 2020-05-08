@@ -40,6 +40,7 @@ const NewToyForm = props => {
         setShouldRedirect(true)
       }
     })
+    .catch(error => console.error(`Error in fetch: ${error.message}`))
   }
 
   if(shouldRedirect) {

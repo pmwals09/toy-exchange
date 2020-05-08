@@ -18,7 +18,7 @@ class Api::V1::ToysController < ApplicationController
 
   def update
     toy_to_update = Toy.find(params[:id])
-    if toy_to_update.update!(toy_params)
+    if toy_to_update.update(toy_params)
       render json: toy_to_update
     else
       render json: { errors: toy_to_update.errors.full_messages.to_sentence }, status: :unprocessable_entity
