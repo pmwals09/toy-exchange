@@ -1,7 +1,6 @@
 import React from 'react'
 
 const UpForGrabs = props => {
-
   const openExchange = event => {
     event.preventDefault()
   }

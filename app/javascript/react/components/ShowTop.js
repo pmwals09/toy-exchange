@@ -1,7 +1,6 @@
 import React from 'react'
 
 const ShowTop = props => {
-
   return (
     <>
       <h1>{props.name}</h1>

@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 const OwnedToy = props => {
-
   const [forSale, setForSale] = useState(props.availability)
 
   const toggleAvailability = event => {
