@@ -90,16 +90,34 @@ RSpec.describe Api::V1::ToyboxesController, type: :controller do
   end
 
   describe "DELETE#destroy" do
-    xit "removes a toybox association from the db" do
+    let!(:existing_toybox) { Toybox.create(user: user1, toy: toy1) }
+    it "removes a toybox association from the db" do
+      sign_in user1
+      toybox_params = {
+        id: toy1.id,
+        user_id: user1.id
+      }
+      before_count = Toybox.count
+      delete :destroy, params: toybox_params
+      after_count = Toybox.count
 
+      expect(after_count).to eq(before_count - 1)
     end
 
-    xit "does not remove the toy or the user from the db" do
+    it "does not remove the toy or the user from the db" do
+      sign_in user1
+      toybox_params = {
+        id: toy1.id,
+        user_id: user1.id
+      }
+      toy_before_count = Toy.count
+      user_before_count = User.count
+      delete :destroy, params: toybox_params
+      toy_after_count = Toy.count
+      user_after_count = User.count
 
-    end
-
-    xit "returns the deleted toybox" do
-
+      expect(toy_after_count).to eq toy_before_count
+      expect(user_after_count).to eq user_before_count
     end
   end
 end
