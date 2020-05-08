@@ -62,7 +62,7 @@ const ToyShowContainer = props => {
       return(
         <UpForGrabs
           key={toybox.toy.id}
-          name={toybox.user.username}
+          toybox={toybox}
         />
       )
     }

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 
 import ShowTop from './ShowTop'
 import OwnedToy from './OwnedToy'
+import UserExchangesContainer from './UserExchangesContainer'
 
 const UserShow = props => {
   const [user, setUser] = useState({
@@ -50,7 +51,7 @@ const UserShow = props => {
     photo = user.profile_photo.profile.url
   }
 
-  let details = <h3>Open Exchanges</h3>
+  let details = <UserExchangesContainer currentUserId={props.match.params.id} />
 
   return (
     <div>

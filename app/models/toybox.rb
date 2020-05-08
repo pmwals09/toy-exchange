@@ -5,4 +5,5 @@ class Toybox < ApplicationRecord
 
   belongs_to :user
   belongs_to :toy
+  has_many :exchanges
 end

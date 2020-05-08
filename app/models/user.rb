@@ -12,4 +12,5 @@ class User < ApplicationRecord
 
   has_many :toyboxes
   has_many :toys, through: :toyboxes
+  has_many :exchanges, class_name: "Exchange", foreign_key: "buyer_id"
 end
