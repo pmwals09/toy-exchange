@@ -3,4 +3,5 @@ class ToyboxSerializer < ActiveModel::Serializer
 
   belongs_to :toy
   belongs_to :user
+  has_many :exchanges
 end

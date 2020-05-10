@@ -18,7 +18,7 @@ const ToyShowContainer = props => {
   })
   const [toyAdded, setToyAdded] = useState(false)
 
-  useEffect(() => {
+  const getToyInfo = () => {
     fetch(`/api/v1/toys/${props.match.params.id}`)
     .then(response => {
       if(response.ok) {
@@ -32,7 +32,7 @@ const ToyShowContainer = props => {
     .then(response => response.json())
     .then(parsedData => setToyData(parsedData.toy))
     .catch(error => console.error(`Error in fetch: ${error.message}`))
-  }, [])
+  }
 
   const addToLibrary = event => {
     event.preventDefault()
@@ -57,12 +57,17 @@ const ToyShowContainer = props => {
     .catch(error => console.error(`Error in fetch: ${error.message}`))
   }
 
+  useEffect(() => {
+    getToyInfo()
+  }, [])
+
   const availableList = toyData.toyboxes.map(toybox => {
     if(toybox.for_sale) {
       return(
         <UpForGrabs
           key={toybox.toy.id}
           toybox={toybox}
+          getToyInfo={getToyInfo}
         />
       )
     }
@@ -76,11 +81,11 @@ const ToyShowContainer = props => {
   }
 
   const details = <>
-    <p><strong>Description: </strong>{toyData.description || "n/a"}</p>
-    <p><strong>Manufacturer: </strong>{toyData.manufacturer_name}</p>
-    <p><strong>UPC: </strong>{toyData.upc || "n/a"}</p>
-    <p><strong>Ages: </strong>{toyData.min_age}-{toyData.max_age}</p>
-  </>
+                    <p><strong>Description: </strong>{toyData.description || "n/a"}</p>
+                    <p><strong>Manufacturer: </strong>{toyData.manufacturer_name}</p>
+                    <p><strong>UPC: </strong>{toyData.upc || "n/a"}</p>
+                    <p><strong>Ages: </strong>{toyData.min_age}-{toyData.max_age}</p>
+                  </>
 
   let gameAddedStatus
   if(toyAdded) {

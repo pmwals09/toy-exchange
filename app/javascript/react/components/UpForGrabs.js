@@ -13,8 +13,8 @@ const UpForGrabs = props => {
     })
     .then(response => {
       if(response.ok) {
-        // redirect to exchange page? Or just a pop-up?
         return response
+        props.getToyInfo()
       } else {
         let errorMessage = `${response.status} (${response.statusText})`
         let error = new Error(errorMessage)
@@ -24,6 +24,7 @@ const UpForGrabs = props => {
     .catch(error => console.error(`Error in fetch: ${error.message}`))
   }
 
+  // button should not appear if it belongs to the current_user
   let openExchangeInfo = "Ready to exchange!"
 
   return(

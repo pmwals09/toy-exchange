@@ -6,14 +6,20 @@ import UserExchangesContainer from './UserExchangesContainer'
 
 const UserShow = props => {
   const [user, setUser] = useState({
-    id: "",
-    emaiil: "",
-    username: "",
-    profile_photo: {
-      profile: { url: "" }
+    user: {
+      user: {
+        id: "",
+        email: "",
+        username: "",
+        profile_photo: {
+          profile: {
+            url: ""
+          }
+        }
+      }
     },
-    toys: [],
-    toyboxes: []
+    toyboxes: { toyboxes: [] },
+    exchanges: { exchanges: [] }
   })
 
   useEffect(() => {
@@ -28,11 +34,11 @@ const UserShow = props => {
       }
     })
     .then(response => response.json())
-    .then(parsedData => setUser(parsedData.user))
+    .then(parsedData => setUser(parsedData))
     .catch(error => console.error(`Error in fetch: ${error.message}`))
   }, [])
 
-  const ownedToysList = user.toyboxes.map(toybox => {
+  const ownedToysList = user.toyboxes.toyboxes.map(toybox => {
     return(
       <OwnedToy
         key={toybox.toy.id}
@@ -45,13 +51,21 @@ const UserShow = props => {
   })
 
   let photo
-  if(user.profile_photo === undefined) {
+  if(user.user.user.profile_photo === undefined) {
     photo = ""
   } else {
-    photo = user.profile_photo.profile.url
+    photo = user.user.user.profile_photo.profile.url
   }
 
-  let details = <UserExchangesContainer currentUserId={props.match.params.id} />
+  let details
+  if(user.id != ""){
+    details = <UserExchangesContainer
+                exchanges={user.exchanges.exchanges}
+                currentUserId={props.match.params.id}
+              />
+  } else {
+    details = ""
+  }
 
   return (
     <div>
