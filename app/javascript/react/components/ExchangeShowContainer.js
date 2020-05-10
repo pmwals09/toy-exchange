@@ -1,6 +1,19 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 
 const ExchangeShowContainer = props => {
+  const [exchange, setExchange] = useState({
+    toybox: {
+      toy: {
+        toy_name: ""
+      },
+      user: {
+        username: ""
+      }
+    },
+    buyer: {
+      username: ""
+    }
+  })
   // fetch to pull the following data:
   // - buyer_id and username
   // - seller_id and username
@@ -11,49 +24,40 @@ const ExchangeShowContainer = props => {
   // - google calendar integration
   // ? How do I tell what the current user is? The url? Nest under users api path?
 
-  const tempData = {
-    buyer: {
-      id: 1,
-      username: "first_buyer_username"
-    },
-    seller: {
-      id: 2,
-      username: "first_seller_username"
-    },
-    toy: {
-      id: 1,
-      toy_name: "Settlers of Catan",
-      manufacturer_name: "Catan",
-      min_age: 3,
-      max_age: 100,
-      toy_photo: {
-        url: null,
-        thumb: {
-          url: null
-        },
-        hero: {
-          url: null
-        }
-      },
-      upc: null,
-      description: "Usually I enjoy playing this, but sometimes I'm just too tired to wheel and deal."
-    }
-  }
+  useEffect(() => {
+    fetch(`/api/v1/exchanges/${props.match.params.id}`)
+    .then(response => {
+      if(response.ok) {
+        return response
+      } else {
+        let errorMessage = `${response.status} (${response.statusText})`
+        let error = new Error(errorMessage)
+        throw(error)
+      }
+    })
+    .then(response => response.json())
+    .then(parsedData => {
+      setExchange(parsedData.exchange)
+    })
+    .catch(error => console.error(`Error in fetch: ${error.message}`))
+  }, [])
+
   return(
     <>
-    <h1>You would like to [buy/sell] a [toy]</h1>
-    <div>
-      <h2>Key transaction details will go here</h2>
-      <ul>
-        <li>Toy info</li>
-        <li>Location - confirmed or not, and maps</li>
-        <li>Date/time - confirmed or not, and date</li>
-      </ul>
-    </div>
-    <div>
-      <h2>Messages will go here</h2>
-      <p>Use mailboxer - how to limit visibility to just these users?</p>
-    </div>
+    <h1>{exchange.toybox.toy.toy_name}</h1>
+    <h2>Exchange Details</h2>
+    <h3>Parties</h3>
+    <ul>
+      <li>Owner: {exchange.toybox.user.username}</li>
+      <li>Buyer: {exchange.buyer.username}</li>
+    </ul>
+    <h3>Time, location</h3>
+    <ul>
+      <li>Location - confirmed or not, and maps</li>
+      <li>Date/time - confirmed or not, and date</li>
+    </ul>
+    <h3>Conversation</h3>
+    <p>Use mailboxer</p>
     </>
   )
 }

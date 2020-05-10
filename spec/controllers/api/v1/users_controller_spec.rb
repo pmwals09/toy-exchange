@@ -16,9 +16,9 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       get :show, params: { id: user1.id }
       api_response = JSON.parse(response.body)
 
-      expect(api_response["user"]["id"]).to eq user1.id
-      expect(api_response["user"]["email"]).to eq user1.email
-      expect(api_response["user"]["username"]).to eq user1.username
+      expect(api_response["user"]["user"]["id"]).to eq user1.id
+      expect(api_response["user"]["user"]["email"]).to eq user1.email
+      expect(api_response["user"]["user"]["username"]).to eq user1.username
     end
   end
 end

@@ -87,11 +87,11 @@ const ToyShowContainer = props => {
                     <p><strong>Ages: </strong>{toyData.min_age}-{toyData.max_age}</p>
                   </>
 
-  let gameAddedStatus
+                let toyAddedStatus
   if(toyAdded) {
-    gameAddedStatus = <p>Toy added to your toy box!</p>
+    toyAddedStatus = <p>Toy added to your toy box!</p>
   } else {
-    gameAddedStatus = ""
+    toyAddedStatus = ""
   }
 
   return (
@@ -103,7 +103,7 @@ const ToyShowContainer = props => {
       />
       <div className="show-bottom">
         <span className="button" onClick={addToLibrary}>Add to your Library!</span> <Link to={`/toys/${toyData.id}/edit`} className="button">Edit</Link>
-        {gameAddedStatus}
+        {toyAddedStatus}
         <h2>Up for Grabs</h2>
         {availableList}
       </div>
