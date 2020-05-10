@@ -1,7 +1,9 @@
-$orange: #f77f00;
+$orange: #f59f49;
+// $orange: #f77f00;
 // $orange: #c44900;
 // $blue: #33658a;
-$blue: #A6D9F7;
+// $blue: #A6D9F7;
+$blue: #2799db;
 $black: #000000;
 $white: #f6f7eb;
 
@@ -33,17 +35,12 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-a, p, label {
+a, p, label, li {
   font-family: 'Raleway', sans-serif;
 }
 
 .button {
   margin: 0.5rem 0;
-}
-
-.logo-text {
-  font-family: 'Modak', cursive;
-  margin-bottom: 0;
 }
 
 .show-bottom {
@@ -124,4 +121,14 @@ a, p, label {
   height: 5rem;
   width: 100%;
   background-color: $orange;
+
+  a {
+    font-weight: 900;
+  }
+
+  #logo-text {
+    font-family: 'Modak', cursive;
+    margin-bottom: 0;
+    font-weight: 400;
+  }
 }

@@ -1,9 +1,31 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::ToysController, type: :controller do
+  let!(:toy1) { FactoryBot.create(:toy) }
+  let!(:toy2) { FactoryBot.create(:toy) }
+  let!(:good_toy_data) { { toy: {
+    toy_name: "Good toy",
+    manufacturer_name: "Good toy maker",
+    min_age: 3,
+    max_age: 15,
+    toy_photo: fixture_file_upload('test-toy-image.jpg', 'image/jpeg')
+  } } }
+  let!(:bad_toy_data_blanks) { { toy: {
+    toy_name: "",
+    manufacturer_name: "Bad toy maker",
+    min_age: 3,
+    max_age: 15,
+    toy_photo: fixture_file_upload('test-toy-image.jpg', 'image/jpeg')
+  } } }
+  let!(:bad_toy_data_wrong) { { toy: {
+    toy_name: "Bad toy",
+    manufacturer_name: "Bad toy maker",
+    min_age: "three",
+    max_age: 15,
+    toy_photo: fixture_file_upload('test-toy-image.jpg', 'image/jpeg')
+  } } }
+
   describe "GET#index" do
-    let!(:toy1) { FactoryBot.create(:toy) }
-    let!(:toy2) { FactoryBot.create(:toy) }
 
     it "returns successful response code and json content" do
       get :index
@@ -12,7 +34,7 @@ RSpec.describe Api::V1::ToysController, type: :controller do
       expect(response.content_type).to eq 'application/json'
     end
 
-    it "returns all games in the db" do
+    it "returns all toys in the db" do
       get :index
       api_response = JSON.parse(response.body)
 
@@ -31,9 +53,6 @@ RSpec.describe Api::V1::ToysController, type: :controller do
   end
 
   describe "GET#show" do
-    let!(:toy1) { FactoryBot.create(:toy)}
-    let!(:toy2) { FactoryBot.create(:toy)}
-
     it "returns successful response code and json content" do
       get :show, params: { id: toy1.id }
 
@@ -51,28 +70,7 @@ RSpec.describe Api::V1::ToysController, type: :controller do
   end
 
   describe "POST#create" do
-    let!(:good_toy_data) { { toy: {
-      toy_name: "Good toy",
-      manufacturer_name: "Good toy maker",
-      min_age: 3,
-      max_age: 15,
-      toy_photo: fixture_file_upload('test-toy-image.jpg', 'image/jpeg')
-    } } }
-    let!(:bad_toy_data_blanks) { { toy: {
-      toy_name: "",
-      manufacturer_name: "Bad toy maker",
-      min_age: 3,
-      max_age: 15,
-      toy_photo: fixture_file_upload('test-toy-image.jpg', 'image/jpeg')
-    } } }
-    let!(:bad_toy_data_wrong) { { toy: {
-      toy_name: "Bad toy",
-      manufacturer_name: "Bad toy maker",
-      min_age: "three",
-      max_age: 15,
-      toy_photo: fixture_file_upload('test-toy-image.jpg', 'image/jpeg')
-    } } }
-    it "adds a new game to the db" do
+    it "adds a new toy to the db" do
       before_count = Toy.count
       post :create, params: good_toy_data, format: :json
       after_count = Toy.count
@@ -80,7 +78,7 @@ RSpec.describe Api::V1::ToysController, type: :controller do
       expect(after_count).to eq(before_count + 1)
     end
 
-    it "returns the new game as json" do
+    it "returns the new toy as json" do
       post :create, params: good_toy_data, format: :json
       api_response = JSON.parse(response.body)
 
@@ -116,8 +114,6 @@ RSpec.describe Api::V1::ToysController, type: :controller do
   end
 
   describe "PATCH#update" do
-    let!(:toy1) { FactoryBot.create(:toy)}
-
     it "does not add an additional toy to the db" do
       good_toy_data = {
         id: toy1.id,
