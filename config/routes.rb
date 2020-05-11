@@ -9,6 +9,9 @@ Rails.application.routes.draw do
   get '/toys/:id/edit', to: 'homes#index'
   get '/users/:id', to: 'homes#index'
   get '/exchanges/:id', to: 'homes#index'
+  # get "mailbox/inbox" => "mailbox#inbox", as: :mailbox_inbox
+  # get "mailbox/sent" => "mailbox#sent", as: :mailbox_sent
+  # get "mailbox/trash" => "mailbox#trash", as: :mailbox_trash
 
   namespace :api do
     namespace :v1 do
@@ -22,6 +25,23 @@ Rails.application.routes.draw do
         resources :exchanges, only: [:index]
       end
       resources :exchanges, only: [:show]
+      resources :conversations, only: [:create, :show, :reply] do
+        resources :messages
+      end
     end
   end
+
+
+  # resources :conversations do
+  #   member do
+  #     post :reply
+  #     post :trash
+  #     post :untrash
+  #   end
+  # end
+
+# from video
+  # resources :conversations do
+  #   resources :messages
+  # end
 end

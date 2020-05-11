@@ -62,3 +62,6 @@ gem "mini_magick"
 
 # Cloud storage integration
 gem "fog"
+
+# messaging
+gem "mailboxer"
