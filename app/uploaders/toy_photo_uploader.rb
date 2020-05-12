@@ -37,10 +37,16 @@ class ToyPhotoUploader < CarrierWave::Uploader::Base
   # end
   version :thumb do
     process resize_to_fit: [225, 225]
+    def default_url
+      "https://toy-exchange-development.s3.amazonaws.com/defaults/thumb_toy_default.jpg"
+    end
   end
 
   version :hero do
     process resize_to_fit: [350, 350]
+    def default_url
+      "https://toy-exchange-development.s3.amazonaws.com/defaults/hero_toy_default.jpg"
+    end
   end
 
   # Add a white list of extensions which are allowed to be uploaded.
