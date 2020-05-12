@@ -24,7 +24,6 @@ const UpForGrabs = props => {
     .catch(error => console.error(`Error in fetch: ${error.message}`))
   }
 
-  // button should not appear if it belongs to the current_user
   let openExchangeInfo = "Ready to exchange!"
 
   return(
