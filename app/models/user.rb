@@ -13,4 +13,14 @@ class User < ApplicationRecord
   has_many :toyboxes
   has_many :toys, through: :toyboxes
   has_many :exchanges, class_name: "Exchange", foreign_key: "buyer_id"
+
+  acts_as_messageable
+
+  def mailboxer_name
+    self.username
+  end
+
+  def mailboxer_email(object)
+    self.email
+  end
 end

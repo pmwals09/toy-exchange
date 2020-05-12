@@ -14,7 +14,15 @@ class Api::V1::ExchangesController < ApplicationController
   end
 
   def show
-    render json: Exchange.find(params[:id])
+    render json: {
+      exchange: serialized_data(Exchange.find(params[:id]), ExchangeSerializer),
+      messages: Exchange.find(params[:id]).mailbox.inbox[0].messages.order(created_at: :desc),
+    }
   end
 
+  private
+
+  def serialized_data(data, serializer)
+    ActiveModelSerializers::SerializableResource.new(data, each_serializer: serializer, scope: current_user)
+  end
 end

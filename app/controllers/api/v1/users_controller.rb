@@ -1,8 +1,6 @@
 class Api::V1::UsersController < ApplicationController
   def show
     exchanges = Exchange.where(buyer_id: params[:id]).or(Exchange.where(toybox: Toybox.where(user_id: params[:id])))
-    # buyer_exchanges = Exchange.where(buyer_id: params[:id])
-    # seller_exchanges = Exchange.where(toybox: Toybox.where(user_id: params[:id]))
     toyboxes = Toybox.where(user_id: params[:id])
     user = User.find(params[:id])
 
@@ -10,8 +8,6 @@ class Api::V1::UsersController < ApplicationController
       user: serialized_data(user, UserSerializer),
       toyboxes: serialized_data(toyboxes, ToyboxSerializer),
       exchanges: serialized_data(exchanges, ExchangeSerializer)
-      # buyer_exchanges: serialized_data(buyer_exchanges, ExchangeSerializer),
-      # seller_exchanges: serialized_data(seller_exchanges, ExchangeSerializer)
     }
   end
 
