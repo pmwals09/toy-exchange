@@ -1,30 +1,43 @@
 import React, { useState, useEffect } from "react"
 
+import Message from "./Message"
+import MessageForm from "./MessageForm"
+
 const ExchangeShowContainer = props => {
   const [exchange, setExchange] = useState({
-    toybox: {
-      toy: {
-        toy_name: ""
-      },
-      user: {
-        username: ""
+    "exchange": {
+      "exchange": {
+        "scope": {
+          "id": ""
+        },
+        "toybox": {
+          "toy": {
+            "toy_name": "",
+          },
+          "user": {
+            "username": ""
+          }
+        },
+        "buyer": {
+          "username": "tester",
+        }
       }
     },
-    buyer: {
-      username: ""
-    }
+    "messages": [
+      {
+        "id": "",
+        "conversation_id": "",
+        "body":"",
+        "sender_id":""
+      }
+    ]
   })
-  // fetch to pull the following data:
-  // - buyer_id and username
-  // - seller_id and username
-  // - all toy data for the item in question
-  //   - should this switch the availability of the toy to false so others don't try to initiate?
-  // - messaging integration
-  // - google maps integration
-  // - google calendar integration
-  // ? How do I tell what the current user is? The url? Nest under users api path?
 
   useEffect(() => {
+    getMessages()
+  }, [])
+
+  const getMessages = () => {
     fetch(`/api/v1/exchanges/${props.match.params.id}`)
     .then(response => {
       if(response.ok) {
@@ -37,19 +50,30 @@ const ExchangeShowContainer = props => {
     })
     .then(response => response.json())
     .then(parsedData => {
-      setExchange(parsedData.exchange)
+      setExchange(parsedData)
     })
     .catch(error => console.error(`Error in fetch: ${error.message}`))
-  }, [])
+  }
+
+  const messageList = exchange.messages.map(message => {
+    return (
+      <Message
+        key={message.id}
+        body={message.body}
+        senderId={message.sender_id}
+        currentUserId={exchange.exchange.exchange.scope.id}
+      />
+    )
+  })
 
   return(
     <>
-    <h1>{exchange.toybox.toy.toy_name}</h1>
+    <h1>{exchange.exchange.exchange.toybox.toy.toy_name}</h1>
     <h2>Exchange Details</h2>
     <h3>Parties</h3>
     <ul>
-      <li>Owner: {exchange.toybox.user.username}</li>
-      <li>Buyer: {exchange.buyer.username}</li>
+      <li>Owner: {exchange.exchange.exchange.toybox.user.username}</li>
+      <li>Buyer: {exchange.exchange.exchange.buyer.username}</li>
     </ul>
     <h3>Time, location</h3>
     <ul>
@@ -57,7 +81,15 @@ const ExchangeShowContainer = props => {
       <li>Date/time - confirmed or not, and date</li>
     </ul>
     <h3>Conversation</h3>
-    <p>Use mailboxer</p>
+    <div className="grid-x grid-margin-x">
+      <div className="cell small-6">
+        <MessageForm
+          conversationId={exchange.messages[0].conversation_id}
+          getMessages={getMessages}
+        />
+        {messageList}
+    </div>
+    </div>
     </>
   )
 }
