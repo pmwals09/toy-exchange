@@ -3,6 +3,7 @@ class Api::V1::ExchangesController < ApplicationController
     new_exchange = Exchange.new(buyer: current_user, toybox_id: params[:toybox_id])
     new_exchange.toybox.for_sale = false
     if new_exchange.save
+      current_user.send_message(new_exchange, "Let's make a deal!", new_exchange.toybox_id)
       render json: new_exchange
     else
       render json: { errors: new_exchange.errors.full_messages }, status: :unprocessable_entity
@@ -16,7 +17,7 @@ class Api::V1::ExchangesController < ApplicationController
   def show
     render json: {
       exchange: serialized_data(Exchange.find(params[:id]), ExchangeSerializer),
-      messages: Exchange.find(params[:id]).mailbox.inbox[0].messages.order(created_at: :desc),
+      messages: Exchange.find(params[:id]).mailbox.inbox[0].messages.order(created_at: :desc)
     }
   end
 
