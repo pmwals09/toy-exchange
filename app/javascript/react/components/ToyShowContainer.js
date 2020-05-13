@@ -119,7 +119,7 @@ const ToyShowContainer = props => {
         details={details}
       />
       <div className="show-bottom">
-        {!toyInLibrary && <AddToLibraryButton addToLibrary={addToLibrary}/>} <Link to={`/toys/${toyData.id}/edit`} className="button">Edit</Link>
+        {!toyInLibrary && <AddToLibraryButton addToLibrary={addToLibrary}/>} {toyData.current_user && <Link to={`/toys/${toyData.id}/edit`} className="button">Edit</Link>}
         {toyAddedStatus}
         <h2>Up for Grabs</h2>
         {availableList}
