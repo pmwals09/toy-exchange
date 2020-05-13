@@ -21,13 +21,14 @@ Rails.application.routes.draw do
         resources :toyboxes, only: [:update, :destroy]
         resources :exchanges, only: [:index]
       end
-      resources :exchanges, only: [:show]
+      resources :exchanges, only: [:show, :update]
       resources :conversations, only: [:create, :show] do
         member do
           post :reply
         end
         resources :messages
       end
+      get '/exchanges/:id/search' => 'exchanges#search'
     end
   end
 end

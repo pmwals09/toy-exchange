@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_10_040127) do
+ActiveRecord::Schema.define(version: 2020_05_13_012118) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,6 +19,10 @@ ActiveRecord::Schema.define(version: 2020_05_10_040127) do
     t.bigint "toybox_id", null: false
     t.boolean "open_status", default: true, null: false
     t.bigint "buyer_id", null: false
+    t.decimal "lat", precision: 10, scale: 7
+    t.decimal "lng", precision: 10, scale: 7
+    t.string "location_name"
+    t.string "address"
     t.index ["buyer_id"], name: "index_exchanges_on_buyer_id"
     t.index ["toybox_id"], name: "index_exchanges_on_toybox_id"
   end

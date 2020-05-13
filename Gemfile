@@ -65,3 +65,9 @@ gem "fog"
 
 # messaging
 gem "mailboxer"
+
+# geocoding for location selection
+gem 'geokit-rails'
+
+# api interaction
+gem 'faraday'
