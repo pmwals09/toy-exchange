@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react"
+import { Redirect } from 'react-router-dom'
 
 import Message from "./Message"
 import MessageForm from "./MessageForm"
 import LocationSelectionContainer from "./LocationSelectionContainer"
 
 const ExchangeShowContainer = props => {
+  const [shouldRedirect, setShouldRedirect] = useState(false)
   const [exchange, setExchange] = useState({
     "exchange": {
       "exchange": {
@@ -48,9 +50,13 @@ const ExchangeShowContainer = props => {
       if(response.ok) {
         return response
       } else {
-        let errorMessage = `${response.status} (${response.statusText})`
-        let error = new Error(errorMessage)
-        throw(error)
+        if(response.status === 404){
+          setShouldRedirect(true)
+        } else {
+          let errorMessage = `${response.status} (${response.statusText})`
+          let error = new Error(errorMessage)
+          throw(error)
+        }
       }
     })
     .then(response => response.json())
@@ -59,6 +65,7 @@ const ExchangeShowContainer = props => {
     })
     .catch(error => console.error(`Error in fetch: ${error.message}`))
   }
+
 
   const messageList = exchange.messages.map(message => {
     return (
@@ -71,6 +78,10 @@ const ExchangeShowContainer = props => {
     )
   })
 
+  if(shouldRedirect) {
+    return <Redirect to="/" />
+  }
+  
   return(
     <>
     <h1>{exchange.exchange.exchange.toybox.toy.toy_name}</h1>

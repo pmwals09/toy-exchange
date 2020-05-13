@@ -1,4 +1,6 @@
 class Api::V1::UsersController < ApplicationController
+  before_action :validate_user
+
   def show
     exchanges = Exchange.where(buyer_id: params[:id]).or(Exchange.where(toybox: Toybox.where(user_id: params[:id])))
     toyboxes = Toybox.where(user_id: params[:id])
@@ -15,5 +17,9 @@ class Api::V1::UsersController < ApplicationController
 
   def serialized_data(data, serializer)
     ActiveModelSerializers::SerializableResource.new(data, each_serializer: serializer, scope: current_user)
+  end
+
+  def validate_user
+    raise ActionController::RoutingError.new("Not Found") unless current_user.id.to_s == params[:id]
   end
 end

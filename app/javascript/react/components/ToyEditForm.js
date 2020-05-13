@@ -6,6 +6,7 @@ import ToyForm from "./ToyForm"
 const ToyEditForm = props => {
   const [newToy, setNewToy] = useState({})
   const [shouldRedirect, setShouldRedirect] = useState(false)
+  const [shouldRedirectHome, setShouldRedirectHome] = useState(false)
   const [defaultFormData, setDefaultFormData] = useState({})
 
   useEffect(() => {
@@ -34,6 +35,7 @@ const ToyEditForm = props => {
       if(response.ok) {
         return response
       } else {
+        setShouldRedirectHome(true)
         let errorMessage = `${response.status} (${response.statusText})`
         let error = new Error(errorMessage)
         throw(error)
@@ -53,6 +55,10 @@ const ToyEditForm = props => {
 
   if(shouldRedirect) {
     return <Redirect to={`/toys/${newToy.id}`} />
+  }
+
+  if(shouldRedirectHome) {
+    return <Redirect to="/" />
   }
 
   if(defaultFormData.id === undefined){

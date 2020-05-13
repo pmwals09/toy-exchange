@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react'
+import { Redirect } from 'react-router-dom'
 
 import ShowTop from './ShowTop'
 import OwnedToy from './OwnedToy'
 import UserExchangesContainer from './UserExchangesContainer'
 
 const UserShow = props => {
+  const [shouldRedirect, setShouldRedirect] = useState(false)
   const [user, setUser] = useState({
     user: {
       user: {
@@ -28,6 +30,7 @@ const UserShow = props => {
       if(response.ok) {
         return response
       } else {
+        setShouldRedirect(true)
         let errorMessage = `${response.status} (${response.statusText})`
         let error = new Error(errorMessage)
         throw(error)
@@ -65,6 +68,10 @@ const UserShow = props => {
               />
   } else {
     details = ""
+  }
+
+  if(shouldRedirect) {
+    return <Redirect to="/" />
   }
 
   return (
