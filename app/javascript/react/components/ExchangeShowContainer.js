@@ -2,11 +2,16 @@ import React, { useState, useEffect } from "react"
 
 import Message from "./Message"
 import MessageForm from "./MessageForm"
+import LocationSelectionContainer from "./LocationSelectionContainer"
 
 const ExchangeShowContainer = props => {
   const [exchange, setExchange] = useState({
     "exchange": {
       "exchange": {
+        "address": "",
+        "lat": null,
+        "lng": null,
+        "location_name": "",
         "scope": {
           "id": ""
         },
@@ -34,10 +39,10 @@ const ExchangeShowContainer = props => {
   })
 
   useEffect(() => {
-    getMessages()
+    getExchange()
   }, [])
 
-  const getMessages = () => {
+  const getExchange = () => {
     fetch(`/api/v1/exchanges/${props.match.params.id}`)
     .then(response => {
       if(response.ok) {
@@ -77,15 +82,26 @@ const ExchangeShowContainer = props => {
     </ul>
     <h3>Time, location</h3>
     <ul>
-      <li>Location - confirmed or not, and maps</li>
-      <li>Date/time - confirmed or not, and date</li>
+      <li>Current Location: {`${exchange.exchange.exchange.location_name} | ${exchange.exchange.exchange.address}` || "Select a location!"}</li>
     </ul>
+    <LocationSelectionContainer
+      location={
+        {
+          lat: parseFloat(exchange.exchange.exchange.lat),
+          lng: parseFloat(exchange.exchange.exchange.lng)
+        }
+      }
+      exchangeId={props.match.params.id}
+      address={exchange.exchange.exchange.address}
+      locationName={exchange.exchange.exchange.location_name}
+      getExchange={getExchange}
+    />
     <h3>Conversation</h3>
     <div className="grid-x grid-margin-x">
       <div className="cell small-6">
         <MessageForm
           conversationId={exchange.messages[0].conversation_id}
-          getMessages={getMessages}
+          getExchange={getExchange}
         />
         {messageList}
     </div>
