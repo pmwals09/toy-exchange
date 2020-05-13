@@ -24,7 +24,7 @@ const MessageForm = props => {
     })
     .then(response => {
       if(response.ok) {
-        props.getMessages()
+        props.getExchange()
         setFormFields(defaultForm)
         return response
       } else {
