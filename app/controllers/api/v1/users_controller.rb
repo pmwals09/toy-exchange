@@ -1,5 +1,5 @@
 class Api::V1::UsersController < ApplicationController
-  before_action :validate_user, only: [:show]
+  before_action :validate_user
 
   def show
     exchanges = Exchange.where(buyer_id: params[:id]).or(Exchange.where(toybox: Toybox.where(user_id: params[:id])))

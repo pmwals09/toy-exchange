@@ -1,6 +1,8 @@
 require 'faraday'
 
 class Api::V1::ExchangesController < ApplicationController
+  before_action :validate_user, except: [:create, :index]
+
   def create
     new_exchange = Exchange.new(buyer: current_user, toybox_id: params[:toybox_id])
     new_exchange.toybox.for_sale = false
@@ -33,7 +35,7 @@ class Api::V1::ExchangesController < ApplicationController
   end
 
   def update
-    exchange_to_update = Exchange.find(params[:exchange_id])
+    exchange_to_update = Exchange.find(params[:id])
     if exchange_to_update.update(
       lat: params[:coords][:lat],
       lng: params[:coords][:lng],
@@ -50,5 +52,10 @@ class Api::V1::ExchangesController < ApplicationController
 
   def serialized_data(data, serializer)
     ActiveModelSerializers::SerializableResource.new(data, each_serializer: serializer, scope: current_user)
+  end
+
+  def validate_user
+    exchange = Exchange.find(params[:id])
+    raise ActionController::RoutingError.new("Not Found") unless current_user == exchange.buyer || current_user == exchange.toybox.user
   end
 end
