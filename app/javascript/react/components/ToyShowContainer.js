@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom'
 
 import ShowTop from "./ShowTop"
 import UpForGrabs from "./UpForGrabs"
+import ToyShowDetails from "./ToyShowDetails"
+import AddToLibraryButton from "./AddToLibraryButton"
 
 const ToyShowContainer = props => {
   const [toyData, setToyData] = useState({
@@ -68,6 +70,7 @@ const ToyShowContainer = props => {
           key={toybox.toy.id}
           toybox={toybox}
           getToyInfo={getToyInfo}
+          currentUser={toyData.current_user}
         />
       )
     }
@@ -80,18 +83,22 @@ const ToyShowContainer = props => {
     photo = toyData.toy_photo.hero.url
   }
 
-  const details = <>
-                    <p><strong>Description: </strong>{toyData.description || "n/a"}</p>
-                    <p><strong>Manufacturer: </strong>{toyData.manufacturer_name}</p>
-                    <p><strong>UPC: </strong>{toyData.upc || "n/a"}</p>
-                    <p><strong>Ages: </strong>{toyData.min_age}-{toyData.max_age}</p>
-                  </>
+  const details = <ToyShowDetails
+                    description={toyData.description}
+                    manufacturerName={toyData.manufacturer_name}
+                    upc={toyData.upc}
+                    minAge={toyData.min_age}
+                    maxAge={toyData.max_age}
+                  />
 
-                let toyAddedStatus
+  let toyAddedStatus = ""
   if(toyAdded) {
     toyAddedStatus = <p>Toy added to your toy box!</p>
-  } else {
-    toyAddedStatus = ""
+  }
+
+  let toyInLibrary = false
+  if (toyData.toyboxes.filter(toybox => toybox.user.id === toyData.current_user.id).length > 0){
+    toyInLibrary = true
   }
 
   return (
@@ -102,7 +109,7 @@ const ToyShowContainer = props => {
         details={details}
       />
       <div className="show-bottom">
-        <span className="button" onClick={addToLibrary}>Add to your Library!</span> <Link to={`/toys/${toyData.id}/edit`} className="button">Edit</Link>
+        {!toyInLibrary && <AddToLibraryButton addToLibrary={addToLibrary}/>} <Link to={`/toys/${toyData.id}/edit`} className="button">Edit</Link>
         {toyAddedStatus}
         <h2>Up for Grabs</h2>
         {availableList}

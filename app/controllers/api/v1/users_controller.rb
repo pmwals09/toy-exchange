@@ -3,7 +3,7 @@ class Api::V1::UsersController < ApplicationController
     exchanges = Exchange.where(buyer_id: params[:id]).or(Exchange.where(toybox: Toybox.where(user_id: params[:id])))
     toyboxes = Toybox.where(user_id: params[:id])
     user = User.find(params[:id])
-
+    binding.pry
     render json: {
       user: serialized_data(user, UserSerializer),
       toyboxes: serialized_data(toyboxes, ToyboxSerializer),

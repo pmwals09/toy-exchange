@@ -1,5 +1,7 @@
 import React from 'react'
 
+import OpenExchangeButton from './OpenExchangeButton'
+
 const UpForGrabs = props => {
   const openExchange = event => {
     event.preventDefault()
@@ -24,16 +26,17 @@ const UpForGrabs = props => {
     .catch(error => console.error(`Error in fetch: ${error.message}`))
   }
 
-  let openExchangeInfo = "Ready to exchange!"
-
+  let openExchangeInfo
+  if(props.currentUser.id != props.toybox.user.id){
+    openExchangeInfo = <OpenExchangeButton openExchange={openExchange} />
+  }
+  // debugger
   return(
     <div className="grid-x grid-margin-x align-middle">
       <div className="cell small-3 align-middle">
         <p>{props.toybox.user.username}</p>
       </div>
-      <div className="cell small-3">
-        <span className="button" onClick={openExchange}>{openExchangeInfo}</span>
-      </div>
+      {openExchangeInfo}
     </div>
   )
 }
