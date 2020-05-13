@@ -27,7 +27,7 @@ const UpForGrabs = props => {
   }
 
   let openExchangeInfo
-  if(props.currentUser.id != props.toybox.user.id){
+  if(props.currentUser && props.currentUser.id != props.toybox.user.id){
     openExchangeInfo = <OpenExchangeButton openExchange={openExchange} />
   }
   // debugger

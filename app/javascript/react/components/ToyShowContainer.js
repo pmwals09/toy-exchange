@@ -16,7 +16,16 @@ const ToyShowContainer = props => {
     toy_photo: { hero: { url: null } },
     upc: null,
     description: "",
-    toyboxes: []
+    toyboxes: [
+      {
+        user: {
+          id: null
+        }
+      }
+    ],
+    current_user: {
+      id: null
+    }
   })
   const [toyAdded, setToyAdded] = useState(false)
 
@@ -32,7 +41,8 @@ const ToyShowContainer = props => {
       }
     })
     .then(response => response.json())
-    .then(parsedData => setToyData(parsedData.toy))
+    .then(parsedData => {
+      setToyData(parsedData.toy)})
     .catch(error => console.error(`Error in fetch: ${error.message}`))
   }
 
@@ -96,9 +106,9 @@ const ToyShowContainer = props => {
     toyAddedStatus = <p>Toy added to your toy box!</p>
   }
 
-  let toyInLibrary = false
-  if (toyData.toyboxes.filter(toybox => toybox.user.id === toyData.current_user.id).length > 0){
-    toyInLibrary = true
+  let toyInLibrary = true
+  if (toyData.current_user && toyData.toyboxes.filter(toybox => toybox.user.id === toyData.current_user.id).length === 0){
+    toyInLibrary = false
   }
 
   return (
