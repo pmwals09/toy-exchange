@@ -26,6 +26,7 @@ class Api::V1::ToyboxesController < ApplicationController
   def destroy
     toybox_to_delete = Toybox.where(user: current_user, toy_id: params["id"])[0]
     if toybox_to_delete.delete
+      Exchange.where(toybox: toybox_to_delete).delete_all
       render json: toybox_to_delete
     else
       render json: { errors: toybox_to_delete.errors.full_messages }, status: :unprocessable_entity
