@@ -6,7 +6,7 @@ import OwnedToy from './OwnedToy'
 import UserExchangesContainer from './UserExchangesContainer'
 
 const UserShow = props => {
-  const [shouldRedirect, setShouldRedirect] = useState(false)
+  const [shouldRedirectHome, setShouldRedirectHome] = useState(false)
   const [user, setUser] = useState({
     user: {
       user: {
@@ -25,12 +25,16 @@ const UserShow = props => {
   })
 
   useEffect(() => {
+    getUser()
+  }, [])
+
+  const getUser = () => {
     fetch(`/api/v1/users/${props.match.params.id}`)
     .then(response => {
       if(response.ok) {
         return response
       } else {
-        setShouldRedirect(true)
+        setShouldRedirectHome(true)
         let errorMessage = `${response.status} (${response.statusText})`
         let error = new Error(errorMessage)
         throw(error)
@@ -39,7 +43,7 @@ const UserShow = props => {
     .then(response => response.json())
     .then(parsedData => setUser(parsedData))
     .catch(error => console.error(`Error in fetch: ${error.message}`))
-  }, [])
+  }
 
   const ownedToysList = user.toyboxes.toyboxes.map(toybox => {
     return(
@@ -49,6 +53,7 @@ const UserShow = props => {
         name={toybox.toy.toy_name}
         userId={props.match.params.id}
         availability={toybox.for_sale}
+        getUser={getUser}
       />
     )
   })
@@ -70,7 +75,7 @@ const UserShow = props => {
     details = ""
   }
 
-  if(shouldRedirect) {
+  if(shouldRedirectHome) {
     return <Redirect to="/" />
   }
 
