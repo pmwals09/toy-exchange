@@ -58,13 +58,6 @@ const UserShow = props => {
     )
   })
 
-  let photo
-  if(user.user.user.profile_photo === undefined) {
-    photo = ""
-  } else {
-    photo = user.user.user.profile_photo.profile.url
-  }
-
   let details
   if(user.id != ""){
     details = <UserExchangesContainer
@@ -83,7 +76,7 @@ const UserShow = props => {
     <div>
       <ShowTop
         name={user.username}
-        photo={photo}
+        photo={user.user.user.profile_photo.profile.url}
         details={details}
       />
       <div className="show-bottom">

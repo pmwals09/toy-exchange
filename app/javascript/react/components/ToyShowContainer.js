@@ -86,13 +86,6 @@ const ToyShowContainer = props => {
     }
   })
 
-  let photo
-  if(toyData.toy_photo === undefined || toyData.toy_photo.hero.url === null) {
-    photo = "https://toy-exchange-development.s3.amazonaws.com/defaults/default.jpg"
-  } else {
-    photo = toyData.toy_photo.hero.url
-  }
-
   const details = <ToyShowDetails
                     description={toyData.description}
                     manufacturerName={toyData.manufacturer_name}
@@ -115,7 +108,7 @@ const ToyShowContainer = props => {
     <div>
       <ShowTop
         name={toyData.toy_name}
-        photo={photo}
+        photo={toyData.toy_photo.hero.url}
         details={details}
       />
       <div className="show-bottom">

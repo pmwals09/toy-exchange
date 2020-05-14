@@ -25,8 +25,8 @@ const ToyForm = props => {
   }
 
   const handleFileUpload = acceptedFiles => {
-    props.setFormData({
-      ...props.formData,
+    setFormData({
+      ...formData,
       toy_photo: acceptedFiles[0]
     })
   }

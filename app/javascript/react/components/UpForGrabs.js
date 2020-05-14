@@ -30,7 +30,7 @@ const UpForGrabs = props => {
   if(props.currentUser && props.currentUser.id != props.toybox.user.id){
     openExchangeInfo = <OpenExchangeButton openExchange={openExchange} />
   }
-  // debugger
+
   return(
     <div className="grid-x grid-margin-x align-middle">
       <div className="cell small-3 align-middle">
