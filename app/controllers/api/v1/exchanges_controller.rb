@@ -7,7 +7,9 @@ class Api::V1::ExchangesController < ApplicationController
     new_exchange = Exchange.new(buyer: current_user, toybox_id: params[:toybox_id])
     new_exchange.toybox.for_sale = false
     if new_exchange.save
+      # new_exchange.send_message([buyer, seller], "Let's make a deal!", new_exchange.toybox_id)
       current_user.send_message(new_exchange, "Let's make a deal!", new_exchange.toybox_id)
+      # include the other user in the conversation
       render json: new_exchange
     else
       render json: { errors: new_exchange.errors.full_messages }, status: :unprocessable_entity

@@ -105,15 +105,19 @@ const ToyShowContainer = props => {
   }
 
   return (
-    <div>
-      <ShowTop
-        name={toyData.toy_name}
-        photo={toyData.toy_photo.hero.url}
-        details={details}
-      />
-      <div className="show-bottom">
+    <div className="grid-y grid-margin-y">
+      <div className="cell">
+        <ShowTop
+          name={toyData.toy_name}
+          photo={toyData.toy_photo.hero.url}
+          details={details}
+          />
+      </div>
+      <div className="cell text-center">
         {!toyInLibrary && <AddToLibraryButton addToLibrary={addToLibrary}/>} {toyData.current_user && <Link to={`/toys/${toyData.id}/edit`} className="button">Edit</Link>}
         {toyAddedStatus}
+      </div>
+      <div className="cell">
         <h2>Up for Grabs</h2>
         {availableList}
       </div>

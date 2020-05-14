@@ -28,7 +28,7 @@ const MessageForm = props => {
         setFormFields(defaultForm)
         return response
       } else {
-        let errorMessage = `$response.status (${response.statusText})`
+        let errorMessage = `${response.status} (${response.statusText})`
         let error = new Error(errorMessage)
         throw(error)
       }

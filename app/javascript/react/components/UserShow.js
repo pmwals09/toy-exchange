@@ -73,16 +73,20 @@ const UserShow = props => {
   }
 
   return (
-    <div>
-      <ShowTop
-        name={user.username}
-        photo={user.user.user.profile_photo.profile.url}
-        details={details}
-      />
-      <div className="show-bottom">
+    <div className="grid-y grid-margin-y">
+      <div className="cell">
+        <ShowTop
+          name={user.username}
+          photo={user.user.user.profile_photo.profile.url}
+          details={details}
+          />
+      </div>
+      <div className="cell text-center">
         <a href="/users/edit" className="button">Edit My Profile</a>
+      </div>
+      <div className="cell">
         <h3>My Toy Box</h3>
-          {ownedToysList}
+        {ownedToysList}
       </div>
     </div>
   )

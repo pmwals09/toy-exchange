@@ -1,16 +1,12 @@
 $orange: #f59f49;
-// $orange: #f77f00;
-// $orange: #c44900;
-// $blue: #33658a;
-// $blue: #A6D9F7;
-$blue: #2799db;
+$transparent-orange: #f59f494d;
+$blue: #0297ed;
+$transparent-blue: #0297ed4d;
 $black: #000000;
 $white: #f6f7eb;
 
 @import url('https://fonts.googleapis.com/css2?family=Modak&display=swap');
 // font-family: 'Modak', cursive;
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap');
-// font-family: 'Playfair Display', serif;
 @import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,300;0,400;0,700;0,900;1,400;1,700&display=swap');
 // font-family: 'Raleway', sans-serif;
 
@@ -27,12 +23,9 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Raleway', sans-serif;
+  font-weight: 600;
   color: $black;
-
-  a{
-    font-family: 'Playfair Display', serif;
-  }
 }
 
 a, p, label, li {
@@ -41,18 +34,29 @@ a, p, label, li {
 
 .button {
   margin: 0.5rem 0;
+  border-radius: 0.5rem;
+  background-color: $orange;
+
+  &:hover {
+    background-color: $blue;
+  }
 }
 
-.show-bottom {
-  display: block;
-  clear: both;
+.message {
+  background-color: $transparent-orange;
+  border-radius: 0.5rem;
+  padding: 0.25rem;
+
+  &.text-right {
+    background-color: $transparent-blue
+  }
 }
 
 .show-top {
 
   .img-container {
     position: relative;
-    width: 33%;
+    width: 25%;
     float: left;
     margin: 0 1rem 1rem 0;
   }

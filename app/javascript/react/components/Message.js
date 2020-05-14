@@ -1,7 +1,7 @@
 import React from "react"
 
 const Message = props => {
-  let messageClass = "cell small-6"
+  let messageClass = "cell small-6 message"
   if (props.senderId === props.currentUserId){
     messageClass += " text-right"
   }

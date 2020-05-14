@@ -15,6 +15,7 @@ class Api::V1::ConversationsController < ApplicationController
   end
 
   def reply
+    binding.pry
     current_user.reply_to_conversation(conversation, conversation_params[:body])
   end
 
