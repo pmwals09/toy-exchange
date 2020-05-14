@@ -81,43 +81,49 @@ const ExchangeShowContainer = props => {
   if(shouldRedirect) {
     return <Redirect to="/" />
   }
-  
+
   return(
-    <>
-    <h1>{exchange.exchange.exchange.toybox.toy.toy_name}</h1>
-    <h2>Exchange Details</h2>
-    <h3>Parties</h3>
-    <ul>
-      <li>Owner: {exchange.exchange.exchange.toybox.user.username}</li>
-      <li>Buyer: {exchange.exchange.exchange.buyer.username}</li>
-    </ul>
-    <h3>Time, location</h3>
-    <ul>
-      <li>Current Location: {`${exchange.exchange.exchange.location_name} | ${exchange.exchange.exchange.address}` || "Select a location!"}</li>
-    </ul>
-    <LocationSelectionContainer
-      location={
-        {
-          lat: parseFloat(exchange.exchange.exchange.lat),
-          lng: parseFloat(exchange.exchange.exchange.lng)
-        }
-      }
-      exchangeId={props.match.params.id}
-      address={exchange.exchange.exchange.address}
-      locationName={exchange.exchange.exchange.location_name}
-      getExchange={getExchange}
-    />
-    <h3>Conversation</h3>
-    <div className="grid-x grid-margin-x">
-      <div className="cell small-6">
-        <MessageForm
-          conversationId={exchange.messages[0].conversation_id}
-          getExchange={getExchange}
-        />
-        {messageList}
+    <div className="grid-y grid-padding-y">
+      <div className="cell">
+        <h1>{exchange.exchange.exchange.toybox.toy.toy_name}</h1>
+        <h2>Exchange Details</h2>
+      </div>
+      <div className="cell">
+        <div className="grid-x grid-margin-x">
+          <div className="cell small-12 medium-6">
+            <h3>Parties</h3>
+            <ul>
+              <li>Owner: {exchange.exchange.exchange.toybox.user.username}</li>
+              <li>Buyer: {exchange.exchange.exchange.buyer.username}</li>
+            </ul>
+            <h3>Time, location</h3>
+            <ul>
+              <li>Current Location: {`${exchange.exchange.exchange.location_name} | ${exchange.exchange.exchange.address}` || "Select a location!"}</li>
+            </ul>
+            <h3>Conversation</h3>
+            <MessageForm
+              conversationId={exchange.messages[0].conversation_id}
+              getExchange={getExchange}
+            />
+            {messageList}
+          </div>
+          <div className="cell small-12 medium-6">
+            <LocationSelectionContainer
+              location={
+                {
+                  lat: parseFloat(exchange.exchange.exchange.lat),
+                  lng: parseFloat(exchange.exchange.exchange.lng)
+                }
+              }
+              exchangeId={props.match.params.id}
+              address={exchange.exchange.exchange.address}
+              locationName={exchange.exchange.exchange.location_name}
+              getExchange={getExchange}
+              />
+          </div>
+        </div>
+      </div>
     </div>
-    </div>
-    </>
   )
 }
 
