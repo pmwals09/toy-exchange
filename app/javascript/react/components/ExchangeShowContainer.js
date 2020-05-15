@@ -91,21 +91,29 @@ const ExchangeShowContainer = props => {
       <div className="cell">
         <div className="grid-x grid-margin-x">
           <div className="cell small-12 medium-6">
-            <h3>Parties</h3>
-            <ul>
-              <li>Owner: {exchange.exchange.exchange.toybox.user.username}</li>
-              <li>Buyer: {exchange.exchange.exchange.buyer.username}</li>
-            </ul>
-            <h3>Time, location</h3>
-            <ul>
-              <li>Current Location: {`${exchange.exchange.exchange.location_name} | ${exchange.exchange.exchange.address}` || "Select a location!"}</li>
-            </ul>
-            <h3>Conversation</h3>
-            <MessageForm
-              conversationId={exchange.messages[0].conversation_id}
-              getExchange={getExchange}
-            />
-            {messageList}
+            <div className="grid-y grid-margin-y">
+              <div className="cell">
+                <h3>Parties</h3>
+                <ul>
+                  <li>Owner: {exchange.exchange.exchange.toybox.user.username}</li>
+                  <li>Buyer: {exchange.exchange.exchange.buyer.username}</li>
+                </ul>
+                <h3>Time, location</h3>
+                <ul>
+                  <li>Current Location: {`${exchange.exchange.exchange.location_name} | ${exchange.exchange.exchange.address}` || "Select a location!"}</li>
+                </ul>
+              </div>
+              <div className="cell">
+                <h3>Conversation</h3>
+                <MessageForm
+                  conversationId={exchange.messages[0].conversation_id}
+                  getExchange={getExchange}
+                  />
+              </div>
+              <div className="cell">
+                {messageList}
+              </div>
+            </div>
           </div>
           <div className="cell small-12 medium-6">
             <LocationSelectionContainer

@@ -18,6 +18,10 @@ a {
   }
 }
 
+a, p, label, li {
+  font-family: 'Raleway', sans-serif;
+}
+
 body {
   background-color: $white;
 }
@@ -26,10 +30,6 @@ h1, h2, h3, h4, h5, h6 {
   font-family: 'Raleway', sans-serif;
   font-weight: 600;
   color: $black;
-}
-
-a, p, label, li {
-  font-family: 'Raleway', sans-serif;
 }
 
 .button {
@@ -45,10 +45,11 @@ a, p, label, li {
 .message {
   background-color: $transparent-orange;
   border-radius: 0.5rem;
-  padding: 0.25rem;
+  padding: 0.25rem 0.5rem;
 
   &.text-right {
-    background-color: $transparent-blue
+    background-color: $transparent-blue;
+    padding-right: 0.5rem
   }
 }
 
@@ -114,7 +115,6 @@ a, p, label, li {
     border-radius: 0.75rem;
   }
 }
-
 
 #avatar {
   border: 1px solid gray;
