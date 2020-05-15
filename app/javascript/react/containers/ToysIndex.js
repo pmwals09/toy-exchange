@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 
-import ToyTile from './ToyTile'
+import ToyTile from '../components/ToyTile'
 
 const ToysIndex = props => {
   const [toys, setToys] = useState({'toys': []})

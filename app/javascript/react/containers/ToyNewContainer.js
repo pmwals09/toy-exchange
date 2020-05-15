@@ -1,34 +1,26 @@
-import React, { useState, useEffect } from "react"
+import React, { useState } from 'react'
 import { Redirect } from 'react-router-dom'
 
-import ToyForm from "./ToyForm"
+import ToyForm from "../components/ToyForm"
 
-const ToyEditForm = props => {
+const ToyNewContainer = props => {
   const [newToy, setNewToy] = useState({})
   const [shouldRedirect, setShouldRedirect] = useState(false)
   const [shouldRedirectHome, setShouldRedirectHome] = useState(false)
-  const [defaultFormData, setDefaultFormData] = useState({})
-
-  useEffect(() => {
-    fetch(`/api/v1/toys/${props.match.params.id}`)
-    .then(response => {
-      if(response.ok) {
-        return response
-      } else {
-        let errorMessage = `${response.status} (${response.statusText})`
-        let error = new Error(errorMessage)
-        throw error
-      }
-    })
-    .then(response => response.json())
-    .then(parsedData => setDefaultFormData(parsedData.toy))
-    .catch(error => console.error(`Error in fetch: ${error.message}`))
-  }, [])
+  const defaultFormData = {
+    toy_name: "",
+    manufacturer_name: "",
+    min_age: "",
+    max_age: "",
+    toy_photo: "",
+    upc: "",
+    description: ""
+  }
 
   const submitForm = formPayload => {
-    fetch(`/api/v1/toys/${props.match.params.id}`, {
+    fetch('/api/v1/toys', {
       credentials: "same-origin",
-      method: "PATCH",
+      method: "POST",
       body: formPayload
     })
     .then(response => {
@@ -61,18 +53,12 @@ const ToyEditForm = props => {
     return <Redirect to="/" />
   }
 
-  if(defaultFormData.id === undefined){
-    return (
-      <h1>Loading...</h1>
-    )
-  } else {
-    return (
-      <ToyForm
-        submitForm={submitForm}
-        defaultFormData={defaultFormData}
-        />
-    )
-  }
+  return (
+    <ToyForm
+      submitForm={submitForm}
+      defaultFormData={defaultFormData}
+      />
+  )
 }
 
-export default ToyEditForm
+export default ToyNewContainer

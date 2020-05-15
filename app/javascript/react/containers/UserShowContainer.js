@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { Redirect } from 'react-router-dom'
 
-import ShowTop from './ShowTop'
-import OwnedToy from './OwnedToy'
+import ShowTop from '../components/ShowTop'
+import OwnedToy from '../components/OwnedToy'
 import UserExchangesContainer from './UserExchangesContainer'
 
 const UserShow = props => {

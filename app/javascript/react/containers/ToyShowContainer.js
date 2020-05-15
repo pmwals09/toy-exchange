@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react"
 import { Link } from 'react-router-dom'
 
-import ShowTop from "./ShowTop"
-import UpForGrabs from "./UpForGrabs"
-import ToyShowDetails from "./ToyShowDetails"
-import AddToLibraryButton from "./AddToLibraryButton"
+import ShowTop from "../components/ShowTop"
+import UpForGrabs from "../components/UpForGrabs"
+import ToyShowDetails from "../components/ToyShowDetails"
+import AddToLibraryButton from "../ui/AddToLibraryButton"
 
 const ToyShowContainer = props => {
   const [toyData, setToyData] = useState({

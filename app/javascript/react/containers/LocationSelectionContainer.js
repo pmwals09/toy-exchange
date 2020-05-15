@@ -1,8 +1,8 @@
 import React, { useState } from "react"
 
-import LocationMap from './LocationMap'
-import LocationForm from './LocationForm'
-import LocationSuggestions from './LocationSuggestions'
+import LocationMap from '../components/LocationMap'
+import LocationForm from '../components/LocationForm'
+import LocationSuggestions from '../components/LocationSuggestions'
 
 const LocationSelectionContainer = props => {
   const [isMarkerShown, setIsMarkerShown] = useState(true)
@@ -66,5 +66,3 @@ const LocationSelectionContainer = props => {
 }
 
 export default LocationSelectionContainer
-
-  // setIsMarkerShown={setIsMarkerShown}

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react"
 import { Redirect } from 'react-router-dom'
 
-import Message from "./Message"
-import MessageForm from "./MessageForm"
+import Message from "../components/Message"
+import MessageForm from "../components/MessageForm"
 import LocationSelectionContainer from "./LocationSelectionContainer"
 
 const ExchangeShowContainer = props => {

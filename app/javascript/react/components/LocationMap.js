@@ -12,4 +12,3 @@ const LocationMap = withScriptjs(withGoogleMap((props) =>
   ))
 
 export default LocationMap
-// <Marker position={props.markerLocation} />

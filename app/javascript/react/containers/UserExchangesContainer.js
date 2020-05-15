@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 
-import ExchangeTile from "./ExchangeTile"
+import ExchangeTile from "../components/ExchangeTile"
 
 const UserExchangesContainer = props => {
 
