@@ -39,7 +39,7 @@ const LocationSuggestions = props => {
     }
 
     return(
-      <div key={result.id} onClick={() => updateExchangeLocation(result.geometry.location, result.name, result.formatted_address)}>
+      <div key={result.name} onClick={() => updateExchangeLocation(result.geometry.location, result.name, result.formatted_address)}>
         <a>
           {placeName} {result.formatted_address}
         </a>
