@@ -22,7 +22,7 @@ class Api::V1::ToysController < ApplicationController
   def update
     params["toy"].each do |k, v|
       if v == "null"
-        params["toy"][k] == ""
+        params["toy"][k] = ""
       end
     end
 
