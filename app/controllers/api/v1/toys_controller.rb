@@ -28,18 +28,17 @@ class Api::V1::ToysController < ApplicationController
 
     toy_to_update = Toy.find(params[:id])
 
-    if params["toy"]["toy_photo"] == "[object Object]"
-      if toy_to_update.update(edit_params)
-        render json: toy_to_update
+    params_to_update =
+      if params["toy"]["toy_photo"] == "[object Object]"
+        edit_params
       else
-        render json: { errors: toy_to_update.errors.full_messages.to_sentence }, status: :unprocessable_entity
+        toy_params
       end
+
+    if toy_to_update.update(params_to_update)
+      render json: toy_to_update
     else
-      if toy_to_update.update(toy_params)
-        render json: toy_to_update
-      else
-        render json: { errors: toy_to_update.errors.full_messages.to_sentence }, status: :unprocessable_entity
-      end
+      render json: { errors: toy_to_update.errors.full_messages.to_sentence }, status: :unprocessable_entity
     end
   end
 
