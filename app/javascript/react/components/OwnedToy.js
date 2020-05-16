@@ -57,7 +57,7 @@ const OwnedToy = props => {
         <Link to={`/toys/${props.id}`}>{props.name}</Link>
       </div>
       <div className="cell small-6">
-        <span className="button" onClick={deleteToybox}>Remove from Toybox</span> <span className="button" onClick={toggleAvailability}>{availabilityButton}</span>
+        <span className="button" onClick={deleteToybox}>Remove from Toy Box</span> <span className="button" onClick={toggleAvailability}>{availabilityButton}</span>
       </div>
     </div>
   )

@@ -20,8 +20,22 @@ class Api::V1::ToysController < ApplicationController
   end
 
   def update
+    params["toy"].each do |k, v|
+      if v == "null"
+        params["toy"][k] = ""
+      end
+    end
+
     toy_to_update = Toy.find(params[:id])
-    if toy_to_update.update(toy_params)
+
+    params_to_update =
+      if params["toy"]["toy_photo"] == "[object Object]"
+        edit_params
+      else
+        toy_params
+      end
+
+    if toy_to_update.update(params_to_update)
       render json: toy_to_update
     else
       render json: { errors: toy_to_update.errors.full_messages.to_sentence }, status: :unprocessable_entity
@@ -34,9 +48,13 @@ class Api::V1::ToysController < ApplicationController
     params.require(:toy).permit(:toy_name, :manufacturer_name, :min_age, :max_age, :toy_photo, :upc, :description)
   end
 
-  def authorize_user
-  if !user_signed_in?
-    raise ActionController::RoutingError.new("Not Found")
+  def edit_params
+    params.require(:toy).permit(:toy_name, :manufacturer_name, :min_age, :max_age, :upc, :description)
   end
-end
+
+  def authorize_user
+    if !user_signed_in?
+      raise ActionController::RoutingError.new("Not Found")
+    end
+  end
 end

@@ -1,6 +1,6 @@
 import React from 'react'
 
-import OpenExchangeButton from './OpenExchangeButton'
+import OpenExchangeButton from '../ui/OpenExchangeButton'
 
 const UpForGrabs = props => {
   const openExchange = event => {
