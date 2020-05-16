@@ -98,7 +98,7 @@ const ExchangeShowContainer = props => {
                   <li>Owner: {exchange.exchange.exchange.toybox.user.username}</li>
                   <li>Buyer: {exchange.exchange.exchange.buyer.username}</li>
                 </ul>
-                <h3>Time, location</h3>
+                <h3>Location</h3>
                 <ul>
                   <li>Current Location: {`${exchange.exchange.exchange.location_name} | ${exchange.exchange.exchange.address}` || "Select a location!"}</li>
                 </ul>

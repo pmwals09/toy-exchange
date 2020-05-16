@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import ShowTop from "../components/ShowTop"
 import UpForGrabs from "../components/UpForGrabs"
 import ToyShowDetails from "../components/ToyShowDetails"
-import AddToLibraryButton from "../ui/AddToLibraryButton"
+import AddToToyboxButton from "../ui/AddToToyboxButton"
 
 const ToyShowContainer = props => {
   const [toyData, setToyData] = useState({
@@ -46,7 +46,7 @@ const ToyShowContainer = props => {
     .catch(error => console.error(`Error in fetch: ${error.message}`))
   }
 
-  const addToLibrary = event => {
+  const addToToybox = event => {
     event.preventDefault()
     fetch(`/api/v1/toys/${props.match.params.id}/toyboxes`, {
       credentials: "same-origin",
@@ -99,9 +99,9 @@ const ToyShowContainer = props => {
     toyAddedStatus = <p>Toy added to your toy box!</p>
   }
 
-  let toyInLibrary = true
+  let toyInToybox = true
   if (toyData.current_user && toyData.toyboxes.filter(toybox => toybox.user.id === toyData.current_user.id).length === 0){
-    toyInLibrary = false
+    toyInToybox = false
   }
 
   return (
@@ -114,7 +114,7 @@ const ToyShowContainer = props => {
           />
       </div>
       <div className="cell text-center">
-        {!toyInLibrary && <AddToLibraryButton addToLibrary={addToLibrary}/>} {toyData.current_user && <Link to={`/toys/${toyData.id}/edit`} className="button">Edit</Link>}
+        {!toyInToybox && <AddToToyboxButton addToToybox={addToToybox}/>} {toyData.current_user && <Link to={`/toys/${toyData.id}/edit`} className="button">Edit</Link>}
         {toyAddedStatus}
       </div>
       <div className="cell">

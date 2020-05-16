@@ -33,8 +33,15 @@ const ToysIndex = props => {
   })
 
   return (
-    <div className="grid-x grid-margin-x">
-      {toyList}
+    <div className="grid-y grid-padding-y">
+      <div className="cell text-center">
+        <h3>Welcome! Please select from the toys below to see more!</h3>
+      </div>
+      <div className="cell">
+        <div className="grid-x grid-margin-x">
+          {toyList}
+        </div>
+      </div>
     </div>
   )
 }
