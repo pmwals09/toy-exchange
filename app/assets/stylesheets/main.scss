@@ -32,6 +32,13 @@ h1, h2, h3, h4, h5, h6 {
   color: $black;
 }
 
+.align-middle {
+
+  p {
+    margin-bottom: 0;
+  }
+}
+
 .button {
   margin: 0.5rem 0;
   border-radius: 0.5rem;
