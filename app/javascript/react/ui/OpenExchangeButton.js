@@ -7,7 +7,7 @@ const OpenExchangeButton = props => {
         className="button"
         onClick={props.openExchange}
       >
-        "Ready to exchange!"
+        Ready to exchange!
       </span>
     </div>
   )

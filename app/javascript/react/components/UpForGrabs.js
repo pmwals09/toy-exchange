@@ -1,8 +1,10 @@
-import React from 'react'
+import React, {useState} from 'react'
 
 import OpenExchangeButton from '../ui/OpenExchangeButton'
 
 const UpForGrabs = props => {
+  const [exchangeAdded, setExchangeAdded] = useState(false)
+
   const openExchange = event => {
     event.preventDefault()
     fetch(`/api/v1/toys/${props.toybox.toy.id}/toyboxes/${props.toybox.id}/exchanges`, {
@@ -15,8 +17,8 @@ const UpForGrabs = props => {
     })
     .then(response => {
       if(response.ok) {
+        setExchangeAdded(true)
         return response
-        props.getToyInfo()
       } else {
         let errorMessage = `${response.status} (${response.statusText})`
         let error = new Error(errorMessage)
@@ -31,12 +33,20 @@ const UpForGrabs = props => {
     openExchangeInfo = <OpenExchangeButton openExchange={openExchange} />
   }
 
+  let exchangeAddedText
+  if(exchangeAdded) {
+    exchangeAddedText = "Exchange opened! Go to your profile for more!"
+  }
+
   return(
     <div className="grid-x grid-margin-x align-middle">
       <div className="cell small-3 align-middle">
         <p>{props.toybox.user.username}</p>
       </div>
       {openExchangeInfo}
+      <div className="cell small-3 align-middle text-center">
+        <p>{exchangeAddedText}</p>
+      </div>
     </div>
   )
 }

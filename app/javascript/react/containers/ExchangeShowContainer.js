@@ -4,8 +4,10 @@ import { Redirect } from 'react-router-dom'
 import Message from "../components/Message"
 import MessageForm from "../components/MessageForm"
 import LocationSelectionContainer from "./LocationSelectionContainer"
+import RemoveExchangeButton from "../ui/RemoveExchangeButton"
 
 const ExchangeShowContainer = props => {
+  const [shouldRedirectHome, setShouldRedirectHome] = useState(false)
   const [shouldRedirect, setShouldRedirect] = useState(false)
   const [exchange, setExchange] = useState({
     "exchange": {
@@ -78,8 +80,12 @@ const ExchangeShowContainer = props => {
     )
   })
 
-  if(shouldRedirect) {
+  if(shouldRedirectHome) {
     return <Redirect to="/" />
+  }
+
+  if(shouldRedirect) {
+    return <Redirect to={`/users/${exchange.exchange.exchange.scope.id}`} />
   }
 
   return(
@@ -93,15 +99,19 @@ const ExchangeShowContainer = props => {
           <div className="cell small-12 medium-6">
             <div className="grid-y grid-margin-y">
               <div className="cell">
+                <h3>Location</h3>
+                <ul>
+                  <li>Current Location: {`${exchange.exchange.exchange.location_name} | ${exchange.exchange.exchange.address}` || "Select a location!"}</li>
+                </ul>
                 <h3>Parties</h3>
                 <ul>
                   <li>Owner: {exchange.exchange.exchange.toybox.user.username}</li>
                   <li>Buyer: {exchange.exchange.exchange.buyer.username}</li>
                 </ul>
-                <h3>Location</h3>
-                <ul>
-                  <li>Current Location: {`${exchange.exchange.exchange.location_name} | ${exchange.exchange.exchange.address}` || "Select a location!"}</li>
-                </ul>
+                <RemoveExchangeButton
+                  exchangeId={props.match.params.id}
+                  setShouldRedirect={setShouldRedirect}
+                />
               </div>
               <div className="cell">
                 <h3>Conversation</h3>
