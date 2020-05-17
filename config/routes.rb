@@ -21,7 +21,7 @@ Rails.application.routes.draw do
         resources :toyboxes, only: [:update, :destroy]
         resources :exchanges, only: [:index]
       end
-      resources :exchanges, only: [:show, :update]
+      resources :exchanges, only: [:show, :update, :destroy]
       resources :conversations, only: [:create, :show] do
         member do
           post :reply

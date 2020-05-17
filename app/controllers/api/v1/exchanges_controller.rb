@@ -48,6 +48,15 @@ class Api::V1::ExchangesController < ApplicationController
     end
   end
 
+  def destroy
+    exchange_to_remove = Exchange.find(params[:id])
+    if exchange_to_remove.delete
+      render json: exchange_to_remove
+    else
+      render json: { errors: exchange_to_remove.errors.full_messages }, status: :unprocessable_entity
+    end
+  end
+
   private
 
   def serialized_data(data, serializer)
