@@ -139,5 +139,29 @@ RSpec.describe Api::V1::ExchangesController, type: :controller do
   end
 
   describe "DELETE#destroy" do
+    it "removes an exchange from the database" do
+      sign_in user2
+      new_toybox = Toybox.create(user: user1, toy: toy1)
+      new_exchange = Exchange.create(toybox: new_toybox, buyer: user2)
+      user2.send_message([new_exchange, Toybox.find(new_toybox.id).user], "Let's make a deal!", new_exchange.toybox_id)
+
+      before_count = Exchange.count
+      delete :destroy, params: { id: new_exchange.id }, format: :json
+      after_count = Exchange.count
+
+      expect(after_count).to eq(before_count - 1)
+    end
+
+    it "returns the deleted exchange" do
+      sign_in user2
+      new_toybox = Toybox.create(user: user1, toy: toy1)
+      new_exchange = Exchange.create(toybox: new_toybox, buyer: user2)
+      user2.send_message([new_exchange, Toybox.find(new_toybox.id).user], "Let's make a deal!", new_exchange.toybox_id)
+
+      delete :destroy, params: { id: new_exchange.id }, format: :json
+      api_response = JSON.parse(response.body)
+      
+      expect(api_response["exchange"]["id"]).to eq new_exchange.id
+    end
   end
 end
