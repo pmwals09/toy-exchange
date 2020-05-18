@@ -21,6 +21,7 @@ RSpec.describe Api::V1::ToyboxesController, type: :controller do
       post :create, params: new_toybox_params, format: :json
       api_response = JSON.parse(response.body)
 
+      expect(api_response["toybox"].length).to eq 5
       expect(api_response["toybox"]["toy"]["id"]).to eq toy1.id
       expect(api_response["toybox"]["user"]["id"]).to eq user1.id
       expect(api_response["toybox"]["for_sale"]).to eq false

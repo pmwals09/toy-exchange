@@ -14,10 +14,6 @@ class Api::V1::ExchangesController < ApplicationController
     end
   end
 
-  def index
-    render json: Exchange.where(buyer_id: params[:user_id]).or(Exchange.joins(Toybox.joins(user_id: params[:user_id])))
-  end
-
   def show
     render json: {
       exchange: serialized_data(Exchange.find(params[:id]), ExchangeSerializer),

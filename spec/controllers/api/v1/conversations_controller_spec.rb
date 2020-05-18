@@ -1,12 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::ConversationsController, type: :controller do
-  describe "GET#new" do
-    xit "" do
+  describe "POST#create" do
+    xit "adds a new conversation to the db" do
 
     end
-  end
-  describe "POST#create" do
+
     xit "" do
 
     end
