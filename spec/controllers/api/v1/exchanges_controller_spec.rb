@@ -90,6 +90,52 @@ RSpec.describe Api::V1::ExchangesController, type: :controller do
   end
 
   describe "PUT#update" do
+    it "does not add an additional exchange to the db" do
+      sign_in user2
+      new_toybox = Toybox.create(user: user1, toy: toy1)
+      new_exchange = Exchange.create(toybox: new_toybox, buyer: user2)
+      user2.send_message([new_exchange, Toybox.find(new_toybox.id).user], "Let's make a deal!", new_exchange.toybox_id)
+      update_params = {
+        id: new_exchange.id,
+        coords: {
+          lat: 15.1234567,
+          lng: 70.1234567
+        },
+        name: "Home",
+        address: "123 Parts Unknown Blvd."
+      }
+
+      before_count = Exchange.count
+      put :update, params: update_params, format: :json
+      after_count = Exchange.count
+
+      expect(after_count).to eq before_count
+    end
+
+    it "returns the updated exchange" do
+      sign_in user2
+      new_toybox = Toybox.create(user: user1, toy: toy1)
+      new_exchange = Exchange.create(toybox: new_toybox, buyer: user2)
+      user2.send_message([new_exchange, Toybox.find(new_toybox.id).user], "Let's make a deal!", new_exchange.toybox_id)
+      update_params = {
+        id: new_exchange.id,
+        coords: {
+          lat: 15.1234567,
+          lng: 70.1234567
+        },
+        name: "Home",
+        formatted_address: "123 Parts Unknown Blvd."
+      }
+
+      put :update, params: update_params, format: :json
+      api_response = JSON.parse(response.body)
+
+      expect(api_response["exchange"]["id"]).to eq new_exchange["id"]
+      expect(api_response["exchange"]["lat"]).to eq update_params[:coords][:lat].to_s
+      expect(api_response["exchange"]["lng"]).to eq update_params[:coords][:lng].to_s
+      expect(api_response["exchange"]["location_name"]).to eq update_params[:name]
+      expect(api_response["exchange"]["address"]).to eq update_params[:formatted_address]
+    end
   end
 
   describe "DELETE#destroy" do
