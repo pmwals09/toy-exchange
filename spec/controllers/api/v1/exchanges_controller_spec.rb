@@ -55,12 +55,31 @@ RSpec.describe Api::V1::ExchangesController, type: :controller do
   end
 
   describe "GET#show" do
-    xit "returns successful response code and json content" do
-      sign_in user1
+    it "returns successful response code and json content" do
+      sign_in user2
+      new_toybox = Toybox.create(user: user1, toy: toy1)
+      new_exchange = Exchange.create(toybox: new_toybox, buyer: user2)
+      user2.send_message([new_exchange, Toybox.find(new_toybox.id).user], "Let's make a deal!", new_exchange.toybox_id)
 
+      get :show, params: { id: new_exchange.id }, format: :json
+
+      expect(response.status).to eq 200
+      expect(response.content_type).to eq 'application/json'
     end
 
-    xit "returns correct exchange data" do
+    it "returns correct exchange data" do
+      sign_in user2
+      new_toybox = Toybox.create(user: user1, toy: toy1)
+      new_exchange = Exchange.create(toybox: new_toybox, buyer: user2)
+      user2.send_message([new_exchange, Toybox.find(new_toybox.id).user], "Let's make a deal!", new_exchange.toybox_id)
+
+      get :show, params: { id: new_exchange.id }, format: :json
+      api_response = JSON.parse(response.body)
+
+      expect(api_response["exchange"]["exchange"]["toybox"]["id"]).to eq(new_toybox["id"])
+      expect(api_response["exchange"]["exchange"]["toybox"]["user"]["id"]).to eq(user1["id"])
+      expect(api_response["exchange"]["exchange"]["buyer"]["id"]).to eq(user2["id"])
+      expect(api_response["messages"].length).to eq 1
     end
   end
 
@@ -68,15 +87,11 @@ RSpec.describe Api::V1::ExchangesController, type: :controller do
     xit "returns successful response code and json content" do
 
     end
-
-    # How to deal w places API - VCR?
   end
 
   describe "PUT#update" do
-
   end
 
-  describer "DELETE#destroy" do
-    
+  describe "DELETE#destroy" do
   end
 end
