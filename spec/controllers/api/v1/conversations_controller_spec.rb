@@ -41,7 +41,7 @@ RSpec.describe Api::V1::ConversationsController, type: :controller do
 
       post :reply, params: conversation_params, format: :json
       api_response = JSON.parse(response.body)
-      # binding.pry
+
       expect(api_response["conversation_id"]).to eq(conversation.id)
       expect(api_response["body"]).to eq(conversation_params[:conversation][:body])
       expect(api_response["sender_id"]).to eq(user1.id)
