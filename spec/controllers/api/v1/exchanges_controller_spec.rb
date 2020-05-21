@@ -84,8 +84,42 @@ RSpec.describe Api::V1::ExchangesController, type: :controller do
   end
 
   describe "GET#search" do
-    xit "returns successful response code and json content" do
+      it "returns successful response code and json content" do
+        VCR.use_cassette('library_search') do
+          sign_in user2
+          new_toybox = Toybox.create(user: user1, toy: toy1)
+          new_exchange = Exchange.create(toybox: new_toybox, buyer: user2)
+          search_params = {
+            id: new_exchange.id,
+            query: "Weymouth, MA library"
+          }
 
+          get :search, params: search_params, format: :json
+
+          expect(response.status).to eq 200
+          expect(response.content_type).to eq 'application/json'
+      end
+    end
+
+    it "returns list of applicable locations" do
+      VCR.use_cassette('library_search') do
+        sign_in user2
+        new_toybox = Toybox.create(user: user1, toy: toy1)
+        new_exchange = Exchange.create(toybox: new_toybox, buyer: user2)
+        search_params = {
+          id: new_exchange.id,
+          query: "Weymouth, MA library"
+        }
+
+        get :search, params: search_params, format: :json
+        api_response = JSON.parse(response.body)
+
+        expect(api_response["results"]).to be_kind_of(Array)
+        expect(api_response["results"].length).to be > 0
+        expect(api_response["results"][0]).to have_key("geometry")
+        expect(api_response["results"][0]).to have_key("name")
+        expect(api_response["results"][0]).to have_key("formatted_address")
+      end
     end
   end
 
@@ -160,7 +194,7 @@ RSpec.describe Api::V1::ExchangesController, type: :controller do
 
       delete :destroy, params: { id: new_exchange.id }, format: :json
       api_response = JSON.parse(response.body)
-      
+
       expect(api_response["exchange"]["id"]).to eq new_exchange.id
     end
   end
