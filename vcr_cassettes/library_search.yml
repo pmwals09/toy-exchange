@@ -1,0 +1,173 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://maps.googleapis.com/maps/api/place/textsearch/json?key=AIzaSyAx4lk-3qP0pWqzMmE-91Mhx5jOD9c0Coc&query=Weymouth%2C+MA+library
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.17.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      content-type:
+      - application/json; charset=UTF-8
+      date:
+      - Thu, 21 May 2020 19:39:12 GMT
+      expires:
+      - Thu, 21 May 2020 19:44:12 GMT
+      cache-control:
+      - public, max-age=300
+      vary:
+      - Accept-Language
+      server:
+      - scaffolding on HTTPServer2
+      content-length:
+      - '1414'
+      x-xss-protection:
+      - '0'
+      x-frame-options:
+      - SAMEORIGIN
+      server-timing:
+      - gfet4t7; dur=683
+      alt-svc:
+      - h3-27=":443"; ma=2592000,h3-25=":443"; ma=2592000,h3-T050=":443"; ma=2592000,h3-Q050=":443";
+        ma=2592000,h3-Q049=":443"; ma=2592000,h3-Q048=":443"; ma=2592000,h3-Q046=":443";
+        ma=2592000,h3-Q043=":443"; ma=2592000,quic=":443"; ma=2592000; v="46,43"
+      connection:
+      - close
+    body:
+      encoding: ASCII-8BIT
+      string: |
+        {
+           "html_attributions" : [],
+           "results" : [
+              {
+                 "business_status" : "CLOSED_TEMPORARILY",
+                 "formatted_address" : "1 Columbian St, South Weymouth, MA 02190, United States",
+                 "geometry" : {
+                    "location" : {
+                       "lat" : 42.174747,
+                       "lng" : -70.950873
+                    },
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 42.17598557989272,
+                          "lng" : -70.94970257010728
+                       },
+                       "southwest" : {
+                          "lat" : 42.17328592010728,
+                          "lng" : -70.95240222989273
+                       }
+                    }
+                 },
+                 "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/school-71.png",
+                 "id" : "ffc956f33c2507515ad19dff07a08a8148069a2e",
+                 "name" : "The Fogg Library",
+                 "permanently_closed" : true,
+                 "photos" : [
+                    {
+                       "height" : 322,
+                       "html_attributions" : [
+                          "\u003ca href=\"https://maps.google.com/maps/contrib/100159118049579085785\"\u003eThomas Vinciguerra\u003c/a\u003e"
+                       ],
+                       "photo_reference" : "CmRaAAAADTz9xxCXwCz0oaTeXw-oGXSjMSqPaFKJVOfA9BjsWMNtcYWKu_GS3FEK2PvdOhzUzyZM_bY8X_fC1M1gyM5TJaqah1aCHSTDubvpTPlmP0iO-brliuGvBWYvTMM1D0XKEhAl5UYKhlzxYa7WqLBFsCcyGhR9rB__dXcD3-mnOrQHqtjdZx2myQ",
+                       "width" : 549
+                    }
+                 ],
+                 "place_id" : "ChIJGSAjpoOd5IkRH3dyEpxI3uw",
+                 "plus_code" : {
+                    "compound_code" : "52FX+VM South Weymouth, Weymouth, MA",
+                    "global_code" : "87JF52FX+VM"
+                 },
+                 "rating" : 3.6,
+                 "reference" : "ChIJGSAjpoOd5IkRH3dyEpxI3uw",
+                 "types" : [ "library", "point_of_interest", "establishment" ],
+                 "user_ratings_total" : 7
+              },
+              {
+                 "business_status" : "CLOSED_TEMPORARILY",
+                 "formatted_address" : "1400 Pleasant St, Weymouth, MA 02189, United States",
+                 "geometry" : {
+                    "location" : {
+                       "lat" : 42.2141448,
+                       "lng" : -70.9252829
+                    },
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 42.21548302989272,
+                          "lng" : -70.92378907010728
+                       },
+                       "southwest" : {
+                          "lat" : 42.21278337010728,
+                          "lng" : -70.92648872989271
+                       }
+                    }
+                 },
+                 "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/school-71.png",
+                 "id" : "7519bd61ae1c1b76249d7ae113393d62ee0dd34b",
+                 "name" : "Franklin Pratt Library",
+                 "permanently_closed" : true,
+                 "photos" : [
+                    {
+                       "height" : 777,
+                       "html_attributions" : [
+                          "\u003ca href=\"https://maps.google.com/maps/contrib/116514750596723148881\"\u003eTommy Sands\u003c/a\u003e"
+                       ],
+                       "photo_reference" : "CmRaAAAA2n78Ty9gxSvC6cD1FYzQnCaTcIBOkz9dj0a7VH_9q_g1ki54boBrS_5DID0TlXFMXanq9I5abljTVxOzbM4EEbr4yRaskR6z2G2A6Oc6oJLizzxRlqhXuSenTxNHoEWjEhAQN5UXwFFWvajR6waAKG1AGhRDiw32OgRCNFvdZcIK6FfvzIBJKQ",
+                       "width" : 1600
+                    }
+                 ],
+                 "place_id" : "ChIJ8Um7oDRi44kR96VfRkwZsbI",
+                 "plus_code" : {
+                    "compound_code" : "637F+MV Weymouth, Hingham, MA",
+                    "global_code" : "87JF637F+MV"
+                 },
+                 "rating" : 5,
+                 "reference" : "ChIJ8Um7oDRi44kR96VfRkwZsbI",
+                 "types" : [ "library", "point_of_interest", "establishment" ],
+                 "user_ratings_total" : 2
+              },
+              {
+                 "business_status" : "CLOSED_TEMPORARILY",
+                 "formatted_address" : "220 North St, North Weymouth, MA 02191, United States",
+                 "geometry" : {
+                    "location" : {
+                       "lat" : 42.24219290000001,
+                       "lng" : -70.943488
+                    },
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 42.24355022989273,
+                          "lng" : -70.94230467010728
+                       },
+                       "southwest" : {
+                          "lat" : 42.24085057010728,
+                          "lng" : -70.94500432989273
+                       }
+                    }
+                 },
+                 "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/school-71.png",
+                 "id" : "b29920b14caace1361950bf22583dd425405395d",
+                 "name" : "North Branch Library",
+                 "permanently_closed" : true,
+                 "place_id" : "ChIJRyMQ-Jlj44kR4cZbDoAJGWo",
+                 "plus_code" : {
+                    "compound_code" : "63R4+VJ North Weymouth, Weymouth, MA",
+                    "global_code" : "87JF63R4+VJ"
+                 },
+                 "rating" : 4.7,
+                 "reference" : "ChIJRyMQ-Jlj44kR4cZbDoAJGWo",
+                 "types" : [ "library", "point_of_interest", "establishment" ],
+                 "user_ratings_total" : 6
+              }
+           ],
+           "status" : "OK"
+        }
+    http_version: null
+  recorded_at: Thu, 21 May 2020 19:39:12 GMT
+recorded_with: VCR 5.1.0

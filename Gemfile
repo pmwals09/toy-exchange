@@ -71,3 +71,6 @@ gem 'geokit-rails'
 
 # api interaction
 gem 'faraday'
+
+# API mocking
+gem 'vcr', group: [:development, :test]
