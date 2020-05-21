@@ -1,24 +1,15 @@
 class Api::V1::ConversationsController < ApplicationController
   before_action :mailbox, :conversation
 
-  def create
-    recipients = User.where(id: conversation_params[:recipients])
-    conversation = current_user.send_message(recipients, conversation_params[:body], conversation_params[:subject]).conversation
-  end
-
-  def show
-    conversation_messages = conversation.messages.order(created_at: :desc)
-    render json: conversation_messages
-  end
-
   def reply
     current_user.reply_to_conversation(conversation, conversation_params[:body])
+    render json: conversation.messages.last
   end
 
   private
 
   def conversation_params
-    params.require(:conversation).permit(:subject, :body,recipients:[])
+    params.require(:conversation).permit(:subject, :body, recipients:[])
   end
 
   def message_params

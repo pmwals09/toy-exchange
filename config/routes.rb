@@ -22,7 +22,7 @@ Rails.application.routes.draw do
         resources :exchanges, only: [:index]
       end
       resources :exchanges, only: [:show, :update, :destroy]
-      resources :conversations, only: [:create, :show] do
+      resources :conversations do
         member do
           post :reply
         end
