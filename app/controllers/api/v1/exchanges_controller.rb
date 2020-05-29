@@ -1,7 +1,7 @@
 require 'faraday'
 
 class Api::V1::ExchangesController < ApplicationController
-  before_action :validate_user, except: [:create, :index]
+  before_action :validate_user, except: [:create]
 
   def create
     new_exchange = Exchange.new(buyer: current_user, toybox_id: params[:toybox_id])
