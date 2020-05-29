@@ -19,11 +19,21 @@ const LocationForm = props => {
     <form onSubmit={handleSubmit}>
       <div className="form-field">
         <label htmlFor="location">Search for a meetup location</label>
-        <input type="text" id="location" name="location" onChange={handleChange} value={formFields.location}/>
+        <input
+          type="text"
+          id="location"
+          name="location"
+          onChange={handleChange}
+          value={formFields.location}
+        />
       </div>
 
       <div className="form-actions">
-        <input type="submit" value="Submit" className="button"/>
+        <input
+          type="submit"
+          value="Submit"
+          className="button"
+        />
       </div>
     </form>
   )

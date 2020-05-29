@@ -58,14 +58,12 @@ const UserShow = props => {
     )
   })
 
-  let details
+  let details = ""
   if(user.id != ""){
     details = <UserExchangesContainer
                 exchanges={user.exchanges.exchanges}
                 currentUserId={props.match.params.id}
               />
-  } else {
-    details = ""
   }
 
   if(shouldRedirectHome) {

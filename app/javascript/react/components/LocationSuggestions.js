@@ -33,13 +33,16 @@ const LocationSuggestions = props => {
   }
 
   const locationList = props.suggestedLocations.results.map(result => {
-    let placeName
+    let placeName = null
     if(result.name != "") {
       placeName = `${result.name} | `
     }
 
     return(
-      <div key={result.name} onClick={() => updateExchangeLocation(result.geometry.location, result.name, result.formatted_address)}>
+      <div
+        key={result.name}
+        onClick={() => updateExchangeLocation(result.geometry.location, result.name, result.formatted_address)}
+      >
         <a>
           {placeName} {result.formatted_address}
         </a>

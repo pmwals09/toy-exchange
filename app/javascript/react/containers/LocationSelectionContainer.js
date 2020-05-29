@@ -55,12 +55,12 @@ const LocationSelectionContainer = props => {
       <LocationForm
         searchLocation={searchLocation}
       />
-    <LocationSuggestions
-      setMarkerLocation={setMarkerLocation}
-      suggestedLocations={suggestedLocations}
-      exchangeId={props.exchangeId}
-      getExchange={props.getExchange}
-    />
+      <LocationSuggestions
+        setMarkerLocation={setMarkerLocation}
+        suggestedLocations={suggestedLocations}
+        exchangeId={props.exchangeId}
+        getExchange={props.getExchange}
+      />
     </>
   )
 }

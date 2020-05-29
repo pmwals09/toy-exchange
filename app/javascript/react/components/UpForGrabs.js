@@ -28,12 +28,12 @@ const UpForGrabs = props => {
     .catch(error => console.error(`Error in fetch: ${error.message}`))
   }
 
-  let openExchangeInfo
+  let openExchangeInfo = null
   if(props.currentUser && props.currentUser.id != props.toybox.user.id && props.currentUser.role != "admin"){
     openExchangeInfo = <OpenExchangeButton openExchange={openExchange} />
   }
 
-  let exchangeAddedText
+  let exchangeAddedText = null
   if(exchangeAdded) {
     exchangeAddedText = "Exchange opened! Go to your profile for more!"
   }

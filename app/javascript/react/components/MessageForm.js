@@ -39,11 +39,20 @@ const MessageForm = props => {
     <form onSubmit={handleSubmit}>
       <div className="form-field">
         <label htmlFor="body">Write to your exchange partner!</label>
-        <textarea id="body" name="body" onChange={handleChange} value={formFields.body} />
+        <textarea
+          id="body"
+          name="body"
+          onChange={handleChange}
+          value={formFields.body}
+        />
       </div>
 
       <div className="form-actions">
-        <input type="submit" value="Submit" className="button"/>
+        <input
+          type="submit"
+          value="Submit"
+          className="button"
+        />
       </div>
     </form>
   )

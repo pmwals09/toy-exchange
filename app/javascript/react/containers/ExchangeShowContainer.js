@@ -137,7 +137,7 @@ const ExchangeShowContainer = props => {
               address={exchange.exchange.exchange.address}
               locationName={exchange.exchange.exchange.location_name}
               getExchange={getExchange}
-              />
+            />
           </div>
         </div>
       </div>
