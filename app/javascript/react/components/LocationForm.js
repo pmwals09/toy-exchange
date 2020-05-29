@@ -23,7 +23,7 @@ const LocationForm = props => {
       </div>
 
       <div className="form-actions">
-        <input type="submit" value="Submit" />
+        <input type="submit" value="Submit" className="button"/>
       </div>
     </form>
   )

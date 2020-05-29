@@ -23,4 +23,8 @@ class User < ApplicationRecord
   def mailboxer_email(object)
     self.email
   end
+
+  def admin?
+    role == "admin"
+  end
 end

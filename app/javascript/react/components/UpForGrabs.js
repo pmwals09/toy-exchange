@@ -29,7 +29,7 @@ const UpForGrabs = props => {
   }
 
   let openExchangeInfo
-  if(props.currentUser && props.currentUser.id != props.toybox.user.id){
+  if(props.currentUser && props.currentUser.id != props.toybox.user.id && props.currentUser.role != "admin"){
     openExchangeInfo = <OpenExchangeButton openExchange={openExchange} />
   }
 
