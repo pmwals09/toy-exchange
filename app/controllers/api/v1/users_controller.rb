@@ -20,6 +20,6 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def validate_user
-    raise ActionController::RoutingError.new("Not Found") unless current_user.id.to_s == params[:id]
+    raise ActionController::RoutingError.new("Not Found") unless current_user.id.to_s == params[:id] || current_user.admin?
   end
 end

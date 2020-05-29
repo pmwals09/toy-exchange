@@ -1,6 +1,6 @@
 class Api::V1::ToysController < ApplicationController
   skip_before_action :verify_authenticity_token
-  before_action :authorize_user, except: [:index, :show]
+  before_action :validate_user, except: [:index, :show]
 
   def index
     render json: Toy.all
@@ -52,9 +52,7 @@ class Api::V1::ToysController < ApplicationController
     params.require(:toy).permit(:toy_name, :manufacturer_name, :min_age, :max_age, :upc, :description)
   end
 
-  def authorize_user
-    if !user_signed_in?
-      raise ActionController::RoutingError.new("Not Found")
-    end
+  def validate_user
+    raise ActionController::RoutingError.new("Not Found") unless user_signed_in? || current_user.admin?
   end
 end

@@ -61,6 +61,6 @@ class Api::V1::ExchangesController < ApplicationController
 
   def validate_user
     exchange = Exchange.find(params[:id])
-    raise ActionController::RoutingError.new("Not Found") unless current_user == exchange.buyer || current_user == exchange.toybox.user
+    raise ActionController::RoutingError.new("Not Found") unless current_user == exchange.buyer || current_user == exchange.toybox.user || current_user.admin?
   end
 end
