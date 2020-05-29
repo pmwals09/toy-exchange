@@ -107,7 +107,7 @@ const ToyForm = props => {
           </Dropzone>
 
           <div className="form-actions">
-            <input type="submit" value="Add Toy to Toy Box" />
+            <input type="submit" value="Add Toy to Library" className="button"/>
           </div>
 
         </form>

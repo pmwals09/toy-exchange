@@ -2,10 +2,8 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 const ToyTile = props => {
-  let photo = props.photo.thumb.url
-  if(!photo) {
-    photo = "https://toy-exchange-development.s3.amazonaws.com/defaults/default.jpg"
-  }
+  const photo = props.photo.thumb.url
+  
   return (
     <div className="cell small-12 medium-3 toy-tile text-center">
       <Link to={`/toys/${props.id}`}>
