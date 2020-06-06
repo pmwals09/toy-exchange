@@ -14,7 +14,6 @@ const LocationForm = ({searchLocation}) => {
     searchLocation(formFields.location)
   }
 
-
   return(
     <form onSubmit={handleSubmit}>
       <div className="form-field">

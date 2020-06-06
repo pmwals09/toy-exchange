@@ -35,6 +35,7 @@ const MessageForm = ({conversationId, getExchange}) => {
     })
     .catch(error => console.error(`Error in fetch: ${error.message}`))
   }
+
   return (
     <form onSubmit={handleSubmit}>
       <div className="form-field">
