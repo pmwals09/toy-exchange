@@ -4,7 +4,7 @@ import { Redirect } from 'react-router-dom'
 import Loading from "../components/Loading"
 import ExchangeContainer from "./ExchangeContainer"
 
-const ExchangeContainerLogic = props => {
+const ExchangeContainerLogic = ({match}) => {
   const [shouldRedirectHome, setShouldRedirectHome] = useState(false)
   const [shouldRedirect, setShouldRedirect] = useState(false)
   const [exchange, setExchange] = useState({})
@@ -15,7 +15,7 @@ const ExchangeContainerLogic = props => {
   }, [])
 
   const getExchange = () => {
-    fetch(`/api/v1/exchanges/${props.match.params.id}`)
+    fetch(`/api/v1/exchanges/${match.params.id}`)
     .then(response => {
       if(response.ok) {
         return response
@@ -51,7 +51,7 @@ const ExchangeContainerLogic = props => {
     return (
       <ExchangeContainer
         exchange={exchange}
-        match={props.match}
+        match={match}
         setShouldRedirect={setShouldRedirect}
         getExchange={getExchange}
       />

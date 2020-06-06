@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 
-const MessageForm = props => {
+const MessageForm = ({conversationId, getExchange}) => {
   const defaultForm = {body: ""}
   const [formFields, setFormFields] = useState(defaultForm)
 
@@ -13,7 +13,7 @@ const MessageForm = props => {
 
   const handleSubmit = event => {
     event.preventDefault()
-    fetch(`/api/v1/conversations/${props.conversationId}/reply`, {
+    fetch(`/api/v1/conversations/${conversationId}/reply`, {
       credentials: "same-origin",
       method: "POST",
       body: JSON.stringify(formFields),
@@ -24,7 +24,7 @@ const MessageForm = props => {
     })
     .then(response => {
       if(response.ok) {
-        props.getExchange()
+        getExchange()
         setFormFields(defaultForm)
         return response
       } else {

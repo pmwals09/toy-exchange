@@ -3,14 +3,14 @@ import { Redirect } from 'react-router-dom'
 
 import ToyForm from "../components/ToyForm"
 
-const ToyEditContainer = props => {
+const ToyEditContainer = ({match}) => {
   const [newToy, setNewToy] = useState({})
   const [shouldRedirect, setShouldRedirect] = useState(false)
   const [shouldRedirectHome, setShouldRedirectHome] = useState(false)
   const [defaultFormData, setDefaultFormData] = useState({})
 
   useEffect(() => {
-    fetch(`/api/v1/toys/${props.match.params.id}`)
+    fetch(`/api/v1/toys/${match.params.id}`)
     .then(response => {
       if(response.ok) {
         return response
@@ -28,7 +28,7 @@ const ToyEditContainer = props => {
   }, [])
 
   const submitForm = formPayload => {
-    fetch(`/api/v1/toys/${props.match.params.id}`, {
+    fetch(`/api/v1/toys/${match.params.id}`, {
       credentials: "same-origin",
       method: "PATCH",
       body: formPayload

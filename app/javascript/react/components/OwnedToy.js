@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
-const OwnedToy = props => {
-  const [forSale, setForSale] = useState(props.availability)
+const OwnedToy = ({availability, userId, id, getUser, name}) => {
+  const [forSale, setForSale] = useState(availability)
 
   const toggleAvailability = event => {
-    fetch(`/api/v1/users/${props.userId}/toyboxes/${props.id}`, {
+    fetch(`/api/v1/users/${userId}/toyboxes/${id}`, {
       credentials: "same-origin",
       method: "PATCH",
       headers: {
@@ -27,7 +27,7 @@ const OwnedToy = props => {
   }
 
   const deleteToybox = event => {
-    fetch(`/api/v1/users/${props.userId}/toyboxes/${props.id}`, {
+    fetch(`/api/v1/users/${userId}/toyboxes/${id}`, {
       credentials: "same-origin",
       method: "DELETE",
       headers: {
@@ -45,7 +45,7 @@ const OwnedToy = props => {
       }
     })
     .then(response => response.json())
-    .then(response => props.getUser())
+    .then(response => getUser())
     .catch(error => console.error(`Error in fetch: ${error.message}`))
   }
 
@@ -54,7 +54,7 @@ const OwnedToy = props => {
   return (
     <div className="grid-x align-middle">
       <div className="cell small-3">
-        <Link to={`/toys/${props.id}`}>{props.name}</Link>
+        <Link to={`/toys/${id}`}>{name}</Link>
       </div>
       <div className="cell small-6">
         <span className="button" onClick={deleteToybox}>Remove from Toy Box</span> <span className="button" onClick={toggleAvailability}>{availabilityButton}</span>

@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 
-const LocationForm = props => {
+const LocationForm = ({searchLocation}) => {
   const [formFields, setFormFields] = useState({location: ""})
 
   const handleChange = event => {
@@ -11,7 +11,7 @@ const LocationForm = props => {
 
   const handleSubmit = event => {
     event.preventDefault()
-    props.searchLocation(formFields.location)
+    searchLocation(formFields.location)
   }
 
 

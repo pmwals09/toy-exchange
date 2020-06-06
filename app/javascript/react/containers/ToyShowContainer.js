@@ -6,12 +6,12 @@ import Loading from '../components/Loading'
 import UpForGrabsContainer from './UpForGrabsContainer'
 import ToyButtonsContainer from './ToyButtonsContainer'
 
-const ToyShowContainer = props => {
+const ToyShowContainer = ({match}) => {
   const [toyData, setToyData] = useState({})
   const [loading, setLoading] = useState(true)
 
   const getToyInfo = () => {
-    fetch(`/api/v1/toys/${props.match.params.id}`)
+    fetch(`/api/v1/toys/${match.params.id}`)
     .then(response => {
       if(response.ok) {
         return response
@@ -53,7 +53,7 @@ const ToyShowContainer = props => {
           </ShowTop>
         </div>
         <div className="cell text-center">
-          <ToyButtonsContainer toyData={toyData} match={props.match}/>
+          <ToyButtonsContainer toyData={toyData} match={match}/>
         </div>
         <div className="cell">
           <UpForGrabsContainer

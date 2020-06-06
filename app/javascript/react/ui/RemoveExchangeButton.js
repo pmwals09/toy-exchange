@@ -1,9 +1,9 @@
 import React from 'react'
 
-const RemoveExchangeButton = props => {
+const RemoveExchangeButton = ({setShouldRedirect, exchangeId}) => {
   const removeExchange = event => {
     event.preventDefault()
-    fetch(`/api/v1/exchanges/${props.exchangeId}`, {
+    fetch(`/api/v1/exchanges/${exchangeId}`, {
       credentials: "same-origin",
       method: "DELETE",
       headers: {
@@ -20,7 +20,7 @@ const RemoveExchangeButton = props => {
         throw(error)
       }
     })
-    .then(response => props.setShouldRedirect(true))
+    .then(response => setShouldRedirect(true))
     .catch(error => console.error(`Error in fetch: ${error.message}`))
   }
 

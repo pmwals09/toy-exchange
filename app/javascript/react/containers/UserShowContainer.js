@@ -6,7 +6,7 @@ import UserExchangesContainer from './UserExchangesContainer'
 import Loading from '../components/Loading'
 import OwnedToysContainer from './OwnedToysContainer'
 
-const UserShow = props => {
+const UserShow = ({match}) => {
   const [shouldRedirectHome, setShouldRedirectHome] = useState(false)
   const [user, setUser] = useState({})
   const [loading, setLoading] = useState(true)
@@ -16,7 +16,7 @@ const UserShow = props => {
   }, [])
 
   const getUser = () => {
-    fetch(`/api/v1/users/${props.match.params.id}`)
+    fetch(`/api/v1/users/${match.params.id}`)
     .then(response => {
       if(response.ok) {
         return response
@@ -51,7 +51,7 @@ const UserShow = props => {
           >
             <UserExchangesContainer
               exchanges={user.exchanges.exchanges}
-              currentUserId={props.match.params.id}
+              currentUserId={match.params.id}
             />
           </ShowTop>
         </div>
@@ -62,7 +62,7 @@ const UserShow = props => {
           <OwnedToysContainer
             toyboxes={user.toyboxes.toyboxes}
             getUser={getUser}
-            match={props.match}
+            match={match}
           />
         </div>
       </div>

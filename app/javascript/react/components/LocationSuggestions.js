@@ -1,15 +1,15 @@
 import React from 'react'
 
-const LocationSuggestions = props => {
+const LocationSuggestions = ({exchangeId, getExchange, suggestedLocations}) => {
 
   const updateExchangeLocation = (coords, name, formatted_address) => {
     let updateData = {
-      exchange_id: props.exchangeId,
+      exchange_id: exchangeId,
       coords: coords,
       name: name,
       formatted_address: formatted_address
     }
-    fetch(`/api/v1/exchanges/${props.exchangeId}`, {
+    fetch(`/api/v1/exchanges/${exchangeId}`, {
       credentials: "same-origin",
       method: "PATCH",
       body: JSON.stringify(updateData),
@@ -28,11 +28,11 @@ const LocationSuggestions = props => {
       }
     })
     .then(response => response.json())
-    .then(parsedData => props.getExchange())
+    .then(parsedData => getExchange())
     .catch(error => console.error(`Error in fetch: ${error.message}`))
   }
 
-  const locationList = props.suggestedLocations.results.map(result => {
+  const locationList = suggestedLocations.results.map(result => {
     let placeName = null
     if(result.name != "") {
       placeName = `${result.name} | `

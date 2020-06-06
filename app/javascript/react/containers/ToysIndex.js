@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react"
 
 import ToyTile from '../components/ToyTile'
 
-const ToysIndex = props => {
+const ToysIndex = () => {
   const [toys, setToys] = useState({'toys': []})
 
   useEffect(() => {

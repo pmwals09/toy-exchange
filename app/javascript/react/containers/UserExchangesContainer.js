@@ -2,16 +2,16 @@ import React, { useState, useEffect } from "react"
 
 import ExchangeTile from "../components/ExchangeTile"
 
-const UserExchangesContainer = props => {
+const UserExchangesContainer = ({exchanges, currentUserId}) => {
 
-  const exchangeList = props.exchanges.map(exchange => {
+  const exchangeList = exchanges.map(exchange => {
     return(
       <ExchangeTile
         key={exchange.id}
         id={exchange.id}
         toybox={exchange.toybox}
         buyer={exchange.buyer}
-        currentUserId={props.currentUserId}
+        currentUserId={currentUserId}
       />
     )
   })
