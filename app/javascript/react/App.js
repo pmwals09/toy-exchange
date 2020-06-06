@@ -6,7 +6,7 @@ import ToyNewContainer from "./containers/ToyNewContainer"
 import ToyShowContainer from "./containers/ToyShowContainer"
 import ToyEditContainer from "./containers/ToyEditContainer"
 import UserShowContainer from "./containers/UserShowContainer"
-import ExchangeShowContainer from "./containers/ExchangeShowContainer"
+import ExchangeContainerLogic from "./containers/ExchangeContainerLogic"
 
 export const App = (props) => {
   return (
@@ -18,7 +18,7 @@ export const App = (props) => {
         <Route exact path='/toys/:id' component={ToyShowContainer} />
         <Route exact path='/toys/:id/edit' component={ToyEditContainer} />
         <Route exact path='/users/:id' component={UserShowContainer} />
-        <Route exact path='/exchanges/:id' component={ExchangeShowContainer} />
+        <Route exact path='/exchanges/:id' component={ExchangeContainerLogic} />
       </Switch>
     </BrowserRouter>
   )
