@@ -7,7 +7,11 @@ class Api::V1::ExchangesController < ApplicationController
     new_exchange = Exchange.new(buyer: current_user, toybox_id: params[:toybox_id])
     new_exchange.toybox.for_sale = false
     if new_exchange.save
-      current_user.send_message([new_exchange, Toybox.find(params[:toybox_id]).user], "Let's make a deal!", new_exchange.toybox_id)
+      current_user.send_message(
+        [new_exchange, Toybox.find(params[:toybox_id]).user],
+        "Let's make a deal!",
+        new_exchange.toybox_id
+      )
       render json: new_exchange
     else
       render json: { errors: new_exchange.errors.full_messages }, status: :unprocessable_entity
@@ -23,7 +27,8 @@ class Api::V1::ExchangesController < ApplicationController
 
   def search
     places_query = params[:query].gsub(' ','%20')
-    response = Faraday.get "https://maps.googleapis.com/maps/api/place/textsearch/json?query=#{places_query}&key=AIzaSyAx4lk-3qP0pWqzMmE-91Mhx5jOD9c0Coc"
+    g_key = "AIzaSyAx4lk-3qP0pWqzMmE-91Mhx5jOD9c0Coc"
+    response = Faraday.get "https://maps.googleapis.com/maps/api/place/textsearch/json?query=#{places_query}&key=#{g_key}"
     parsed_response = JSON.parse(response.body)
     places_results = parsed_response["results"]
 

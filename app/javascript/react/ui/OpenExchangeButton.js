@@ -1,11 +1,11 @@
 import React from 'react'
 
-const OpenExchangeButton = props => {
+const OpenExchangeButton = ({openExchange}) => {
   return (
     <div className="cell small-3">
       <span
         className="button"
-        onClick={props.openExchange}
+        onClick={openExchange}
       >
         Ready to exchange!
       </span>

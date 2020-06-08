@@ -1,12 +1,12 @@
 import React from 'react'
 
-const ToyShowDetails = props => {
+const ToyShowDetails = ({description, manufacturerName, upc, minAge, maxAge}) => {
   return (
     <div>
-      <p><strong>Description: </strong>{props.description || "n/a"}</p>
-      <p><strong>Manufacturer: </strong>{props.manufacturerName}</p>
-      <p><strong>UPC: </strong>{props.upc || "n/a"}</p>
-      <p><strong>Ages: </strong>{props.minAge}-{props.maxAge}</p>
+      <p><strong>Description: </strong>{description || "n/a"}</p>
+      <p><strong>Manufacturer: </strong>{manufacturerName}</p>
+      <p><strong>UPC: </strong>{upc || "n/a"}</p>
+      <p><strong>Ages: </strong>{minAge}-{maxAge}</p>
     </div>
   )
 }

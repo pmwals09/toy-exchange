@@ -2,12 +2,12 @@ import React, {useState} from 'react'
 
 import OpenExchangeButton from '../ui/OpenExchangeButton'
 
-const UpForGrabs = props => {
+const UpForGrabs = ({toybox, currentUser}) => {
   const [exchangeAdded, setExchangeAdded] = useState(false)
 
   const openExchange = event => {
     event.preventDefault()
-    fetch(`/api/v1/toys/${props.toybox.toy.id}/toyboxes/${props.toybox.id}/exchanges`, {
+    fetch(`/api/v1/toys/${toybox.toy.id}/toyboxes/${toybox.id}/exchanges`, {
       credentials: "same-origin",
       method: "POST",
       headers: {
@@ -28,24 +28,20 @@ const UpForGrabs = props => {
     .catch(error => console.error(`Error in fetch: ${error.message}`))
   }
 
-  let openExchangeInfo
-  if(props.currentUser && props.currentUser.id != props.toybox.user.id && props.currentUser.role != "admin"){
-    openExchangeInfo = <OpenExchangeButton openExchange={openExchange} />
-  }
-
-  let exchangeAddedText
-  if(exchangeAdded) {
-    exchangeAddedText = "Exchange opened! Go to your profile for more!"
-  }
+  let isOpenExchange = (
+    currentUser &&
+    currentUser.id != toybox.user.id &&
+    currentUser.role != "admin"
+  )
 
   return(
     <div className="grid-x grid-margin-x align-middle">
       <div className="cell small-3 align-middle">
-        <p>{props.toybox.user.username}</p>
+        <p>{toybox.user.username}</p>
       </div>
-      {openExchangeInfo}
+      {isOpenExchange && <OpenExchangeButton openExchange={openExchange} />}
       <div className="cell small-3 align-middle text-center">
-        <p>{exchangeAddedText}</p>
+        <p>{exchangeAdded && "Exchange opened! Go to your profile for more!"}</p>
       </div>
     </div>
   )

@@ -20,20 +20,9 @@ class Api::V1::ToysController < ApplicationController
   end
 
   def update
-    params["toy"].each do |k, v|
-      if v == "null"
-        params["toy"][k] = ""
-      end
-    end
-
+    norm_nulls
     toy_to_update = Toy.find(params[:id])
-
-    params_to_update =
-      if params["toy"]["toy_photo"] == "[object Object]"
-        edit_params
-      else
-        toy_params
-      end
+    params_to_update = params["toy"]["toy_photo"] == "[object Object]" ? edit_params : toy_params
 
     if toy_to_update.update(params_to_update)
       render json: toy_to_update
@@ -54,5 +43,13 @@ class Api::V1::ToysController < ApplicationController
 
   def validate_user
     raise ActionController::RoutingError.new("Not Found") unless user_signed_in? || current_user.admin?
+  end
+
+  def norm_nulls
+    params["toy"].each do |k, v|
+      if v == "null"
+        params["toy"][k] = ""
+      end
+    end
   end
 end

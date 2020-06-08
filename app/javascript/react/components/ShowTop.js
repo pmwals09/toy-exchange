@@ -8,7 +8,7 @@ const ShowTop = props => {
         <div className="img-container">
           <img src={props.photo} />
         </div>
-        {props.details}
+        {props.children}
       </div>
     </>
   )

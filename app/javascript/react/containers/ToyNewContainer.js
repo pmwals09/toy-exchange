@@ -2,8 +2,9 @@ import React, { useState } from 'react'
 import { Redirect } from 'react-router-dom'
 
 import ToyForm from "../components/ToyForm"
+import Loading from "../components/Loading"
 
-const ToyNewContainer = props => {
+const ToyNewContainer = () => {
   const [newToy, setNewToy] = useState({})
   const [shouldRedirect, setShouldRedirect] = useState(false)
   const [shouldRedirectHome, setShouldRedirectHome] = useState(false)
@@ -57,7 +58,7 @@ const ToyNewContainer = props => {
     <ToyForm
       submitForm={submitForm}
       defaultFormData={defaultFormData}
-      />
+    />
   )
 }
 

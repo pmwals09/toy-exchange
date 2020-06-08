@@ -1,8 +1,8 @@
 import React from 'react'
 
-const AddToToyboxButton = props => {
+const AddToToyboxButton = ({addToToybox}) => {
   return (
-      <span className="button" onClick={props.addToToybox}>
+      <span className="button" onClick={addToToybox}>
         Add to your Toy Box!
       </span>
   )

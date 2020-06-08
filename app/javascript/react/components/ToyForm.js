@@ -4,8 +4,8 @@ import _ from 'lodash'
 
 import ErrorList from "./ErrorList"
 
-const ToyForm = props => {
-  const [formData, setFormData] = useState(props.defaultFormData)
+const ToyForm = ({defaultFormData, submitForm}) => {
+  const [formData, setFormData] = useState(defaultFormData)
   const [errors, setErrors] = useState({})
 
   const validateForm = () => {
@@ -53,7 +53,7 @@ const ToyForm = props => {
       body.append("toy[upc]", formattedUpc)
       body.append("toy[description]", formData.description)
 
-      props.submitForm(body)
+      submitForm(body)
     }
   }
 

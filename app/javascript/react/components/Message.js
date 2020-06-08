@@ -1,14 +1,14 @@
 import React from "react"
 
-const Message = props => {
+const Message = ({senderId, currentUserId, body}) => {
   let messageClass = "cell small-6 message"
-  if (props.senderId === props.currentUserId){
+  if (senderId === currentUserId){
     messageClass += " text-right"
   }
 
   return (
     <div className="cell small-6">
-      <p className={messageClass}>{props.body}</p>
+      <p className={messageClass}>{body}</p>
     </div>
   )
 }
